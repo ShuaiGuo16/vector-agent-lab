@@ -1,0 +1,27 @@
+VECTOR AGENT LAB — RESPONSIBILITY CONTRACT
+==========================================
+Planner and reviewer independently choose remaining goals, coordinates, speeds,
+charging, goal-specific guidance and station review stops. Both use the same strict
+Pydantic Responses output. Reviews see the installed plan, completed stable IDs,
+actual per-goal measurements and recent factual execution history.
+The decision model chooses one of six literal maneuvers using that context and
+current measurements. It cannot revise goals, request reviews or send messages.
+
+Code supplies mechanics and facts: the full static obstacle geometry, body bounds,
+actual completion predicates, instantaneous actuator values, measured state and
+history. Conventional bounded tracking/stabilization applies the chosen maneuver.
+No supplied feasible route, strategy grader, action mask, baseline substitution,
+manual rescue or deterministic strategy repair is used during AI runs.
+
+Goals complete from actual physical/task predicates. Stable IDs retain completed
+work across reviews. Station-review responses install after actual completion;
+late responses leave a physical wait assignment. Other reviews run while moving.
+Initial setup freezes physics; reviews do not. Pause cancels pending work and releases
+unfinished review reservations; installed reviews remain recorded. Incoming response
+freshness differs from accepted-command continuity. Goal changes need fresh choices.
+
+Manual control and the fixed conventional baseline remain separate from the AI
+path. Historical evidence/readers remain; old live agent implementations are retired.
+Bug fixes and maintenance validation belong in those sections of ITERATIONS.md,
+separate from model-behavior observations. API costs use one per-attempt ledger,
+with returned usage priced once and genuinely unreturned usage kept unknown.

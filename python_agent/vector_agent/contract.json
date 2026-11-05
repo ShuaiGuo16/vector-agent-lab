@@ -1,0 +1,2084 @@
+{
+  "taskConstants": {
+    "standingHeight": 0.6,
+    "flightSettleOffset": 0.04,
+    "stationSpeed": 0.75,
+    "stationHeightTolerance": 1,
+    "stationRadiusInset": 2,
+    "dwellSeconds": 2.5,
+    "landingImpact": 4.5,
+    "transitRadius": 2,
+    "chargeRate": 14,
+    "chargeComplete": 98,
+    "capacity": 100
+  },
+  "goalPlannerInstructions": "This system controls a car that can drive and fly in a physical city. Restore the City requires the grounded departure, activation of three rooftop relays, and return to the depot. Charging is available at one station. The supplied task facts define exact acceptance and failure conditions.\nThe initial route planner chooses the journey from the vehicle's current position, including the required grounded departure, charging stops, 3D transit points, speeds, goal-specific guidance and review stops. Departure belongs in the model-authored goals and remains editable during review. The engine does not prepend a departure or transit goal. A route reviewer later reassesses the installed plan using execution measurements. A decision model chooses one immediate maneuver from six distinct choices. The engine follows that maneuver with bounded tracking and stabilization at 120 Hz until it is replaced or the current goal changes. It advances goals only on measured completion. It does not select maneuvers, generate routes or avoid obstacles. All six choices remain available.\nInitial planning pauses physics and execution time. Reviews run alongside physical execution. Each request sees one snapshot; measurements do not update inside a pending request. At a scheduled station review, the car must finish that station, then the decision model maintains a separate grounded stationary wait goal until the review is ready. Other reviews run while the car continues its current goals. The decision model cannot request reviews or communicate outside its maneuver choice. Models share the installed plan and reported measurements, not a conversation.\nYou are the route planner for initial planning and the route reviewer for later requests, as identified by the request purpose. Use the supplied full solid map, vehicle bounds, thrust-reserve mechanics, current state and mission requirements. When departureComplete is false, include reaching the mandatory grounded departure in your plan using ordinary drive goals. The engine supplies the checkpoint requirement, not a route to it. Avoidance, resource strategy and local priorities are your decisions. During review, start from the supplied installed plan, which may have been authored by another model, and reassess it using completed goal IDs, actual per-goal time/reserve measurements and recent execution history. You may keep it or revise all remaining goals and guidance, including the active driving goal before departure completes. The request's review.application states when your response will be installed; use that timing when choosing the starting point of the remaining journey. Stable goal identities preserve actual progress while a review is pending. The decision model sees the current goal's guidance and the upcoming path; it chooses maneuvers from fresh observations.",
+  "goalDecisionInstructions": "This system controls a car that can drive and fly in a physical city. Restore the City requires the grounded departure, activation of three rooftop relays, and return to the depot. Charging is available at one station. The supplied task facts define exact acceptance and failure conditions.\nThe initial route planner chooses the journey from the vehicle's current position, including the required grounded departure, charging stops, 3D transit points, speeds, goal-specific guidance and review stops. Departure belongs in the model-authored goals and remains editable during review. The engine does not prepend a departure or transit goal. A route reviewer later reassesses the installed plan using execution measurements. A decision model chooses one immediate maneuver from six distinct choices. The engine follows that maneuver with bounded tracking and stabilization at 120 Hz until it is replaced or the current goal changes. It advances goals only on measured completion. It does not select maneuvers, generate routes or avoid obstacles. All six choices remain available.\nInitial planning pauses physics and execution time. Reviews run alongside physical execution. Each request sees one snapshot; measurements do not update inside a pending request. At a scheduled station review, the car must finish that station, then the decision model maintains a separate grounded stationary wait goal until the review is ready. Other reviews run while the car continues its current goals. The decision model cannot request reviews or communicate outside its maneuver choice. Models share the installed plan and reported measurements, not a conversation.\nYou are the decision model. Choose the immediate maneuver that advances the current goal using its local model-authored guidance, upcoming path, task acceptance conditions, geometry, thrust reserve, vehicle motion and measured actuator effects. Choice descriptions give mechanics, not selection rules. suppliedFacts.decisionTiming describes the nominal regular request interval and command continuity. Your selected maneuver continues to track this goal between requests; commands do not teleport the car. A new goal needs a fresh choice. A wait_review goal is unfinished until a planner response is installed; its physical assignment is grounded and stationary at that station. You cannot change goals, guidance, scheduling or request a review. Later requests supply fresh measurements.",
+  "modelActions": [
+    "drive",
+    "climb",
+    "cruise",
+    "approach",
+    "descend",
+    "hold"
+  ],
+  "version": "I73-model-authored-departure",
+  "actions": [
+    "drive",
+    "brake",
+    "climb",
+    "cruise",
+    "approach",
+    "descend",
+    "hold"
+  ],
+  "taskFacts": {
+    "objective": "Complete the mandatory grounded departure, activate all three rooftop relays and return to the depot. Avoid solid obstacles, overturning and leaving the operational district.",
+    "timing": {
+      "hardDeadline": false,
+      "metric": "Elapsed execution seconds; initial planning is excluded. Execution and route-review waits count toward elapsed time. No time-expiry failure."
+    },
+    "completion": {
+      "mandatoryGroundDeparture": "Cross x in (27,43), z in [112,121] while grounded before relay activation. This is a measured mission requirement; the engine does not insert a departure goal into the model plan.",
+      "modelWaypoints": "Model-authored vehicle-center xyz transit points advance at 3D distance strictly below 2 m; road mode also requires wheel contact. No speed or dwell requirement. After these points the station objective follows.",
+      "stations": "Grounded, horizontal distance strictly below station radius minus 2 m, standing-height error below 1 m, full 3D speed below 0.75 m/s.",
+      "relays": "Each requires last landing impact below 4.5 m/s and 2.5 continuous qualifying seconds.",
+      "charger": "The only energy-restoring location; adds 14 energy points/s while station requirements hold. A charger leg completes at energy >=98.",
+      "depot": "Terminal only; all three relays activated and 2.5 continuous qualifying seconds."
+    },
+    "failureConditions": {
+      "outsideDistrict": {
+        "vehicleYBelow": -3,
+        "absoluteVehicleXAbove": 195,
+        "vehicleZBelow": -285,
+        "vehicleZAbove": 175
+      },
+      "overturned": {
+        "bodyUpWorldYBelow": 0.1,
+        "meaning": "World-vertical component of the actual rotated vehicle up vector; 1 is upright."
+      },
+      "severeCollision": {
+        "velocityChangeMagnitudeAbove": 14,
+        "units": "m/s across one 1/120-second physics step",
+        "onlyAfterSimulationSeconds": 2
+      }
+    },
+    "energy": "Energy depletion alone is not a terminal rule. Thrust weakens below 8 energy and may become insufficient; actual energy behavior is provided in physics.energy.",
+    "controlInterface": {
+      "planningReview": {
+        "scheduling": "The runtime reviews after relay completion changes or sustained lack of movement, charging or relay progress, subject to cooldowns. If departure, relay or charging completion changes during a review, it discards the response and requests a fresh review.",
+        "decisionModelCanRequestReview": false,
+        "energyDropAloneTriggersReview": false,
+        "whilePending": "The decision model continues the installed route and guidance; physics and energy use do not pause.",
+        "reviewOutput": "The route planner may keep or revise both route and guidance."
+      },
+      "routeExecution": "Once the mandatory ground departure is complete, track the model transit points in order, then the leg station. No waypoint speed/dwell requirement. The station remains current until its landing/activation/charging requirements hold. All seven maneuvers remain available at every point.",
+      "obstacles": "Building and vehicle bounds are solid. Supplied primitives do not plan collision-free aerial paths or autonomously choose another maneuver.",
+      "attitude": "An attitude stabilizer follows bounded commands; contact or dynamics can still overturn the car.",
+      "liftActivation": "Positive lift activates flight when energy is greater than 1; grounded non-positive lift gives control to the wheels.",
+      "uncertainty": "Commands are instantaneous setpoints, not predicted outcomes. Vehicle inertia, attitude, energy and request latency affect execution."
+    }
+  },
+  "actionMechanics": {
+    "drive": "DRIVE: apply wheel throttle and steering toward the current goal only when the wheels have ground contact, including on a roof; without contact it issues brakes with zero wheel propulsion. It cannot take off. Ground speed cap is the current goal speed (also capped at 8 m/s, or 3.5 in turns).",
+    "brake": "BRAKE: reduce horizontal motion to zero. Ground handbrake or airborne height hold. Airborne holding consumes energy. Same actuator effect as HOLD.",
+    "climb": "CLIMB: gain altitude toward the supplied tracking height, up to 6 m/s, while stopping horizontal motion. This is a continuous altitude-tracking command, also capable of takeoff. Correction above the travel height is capped at 1 m/s downward.",
+    "cruise": "CRUISE: fly horizontally toward the objective at the planned speed cap. Vertical correction toward supplied tracking height is limited to 2 m/s in either direction. No takeoff from the ground.",
+    "approach": "APPROACH: fly horizontally toward the objective at a 4 m/s speed cap. Vertical correction toward supplied tracking height is limited to 2 m/s in either direction. No takeoff from the ground.",
+    "descend": "DESCEND: track the current transit goal vehicle-center height, or settle toward station surface +0.60 m at a landing objective, up to 3 m/s downward (or 1 m/s upward correction). The station settling height differs from the generic +0.64 m flight setpoint so the wheels can establish contact. Vertical tracking operates at any horizontal offset; it does not inspect obstacles. Airborne horizontal correction is capped at 1.4 m/s. On the ground this applies brakes and has no wheel propulsion.",
+    "hold": "HOLD: reduce horizontal motion to zero. Ground handbrake or airborne height hold. Airborne holding consumes energy."
+  },
+  "executionFacts": {
+    "physics": {
+      "energy": {
+        "units": "percentage points of the thrust reserve; capacity is 100",
+        "scope": "A flight-resource budget, separate from wheel propulsion. Ordinary wheel driving and remaining parked with flight disengaged consume none of this reserve. Flight, including hovering or holding in the air, consumes reserve. Only the charging station replenishes it.",
+        "approximateHoverEnergyPerSecond": 0.55,
+        "consumption": "Estimate for level hover with full available thrust. Actual consumption depends on throttle, climb, braking, attitude and time spent aligning or waiting in flight.",
+        "lowEnergyThrust": {
+          "startsBelow": 8,
+          "commandedThrottleMultiplier": "min(1, energy / 8)",
+          "effect": "Below 8 energy the same throttle command produces less thrust, reducing ability to maintain altitude or arrest descent. Nominal climb/descent performance is not assured."
+        }
+      },
+      "standingHeightAboveSurface": 0.6,
+      "tracking": "Controls are bounded setpoints followed with inertia; they do not snap the vehicle to a target. Most scalar measurements are rounded to 0.01, while reported completion-condition flags use the underlying game measurements.",
+      "bodyCollisionEnvelopeLocal": {
+        "min": [
+          -0.94,
+          -0.27,
+          -2.16
+        ],
+        "max": [
+          0.94,
+          0.56,
+          2.16
+        ],
+        "coordinateFrame": "Vehicle-local xyz; rotate by vehicle orientation and translate by vehicle position"
+      }
+    }
+  },
+  "executionHistoryConfig": {
+    "sampleIntervalSeconds": 1,
+    "recentWindowSeconds": 30
+  },
+  "world": {
+    "targets": [
+      {
+        "x": 0,
+        "z": 12,
+        "y": 18,
+        "radius": 7.5,
+        "name": "Glasshouse relay",
+        "short": "GLASSHOUSE",
+        "id": "relay-1"
+      },
+      {
+        "x": -70,
+        "z": -58,
+        "y": 29,
+        "radius": 7.5,
+        "name": "Observatory relay",
+        "short": "OBSERVATORY",
+        "id": "relay-2"
+      },
+      {
+        "x": 70,
+        "z": -128,
+        "y": 39,
+        "radius": 8,
+        "name": "Highline relay",
+        "short": "HIGHLINE",
+        "id": "relay-3"
+      },
+      {
+        "id": "charger",
+        "x": -175,
+        "y": 0,
+        "z": 48,
+        "radius": 7,
+        "name": "Waterfront charging station"
+      },
+      {
+        "x": 35,
+        "z": 150,
+        "y": 0,
+        "radius": 8,
+        "name": "Harbor depot",
+        "short": "START",
+        "yaw": 0,
+        "id": "depot"
+      }
+    ],
+    "maxBuildingHeight": 50,
+    "streetX": [
+      -175,
+      -105,
+      -35,
+      35,
+      105,
+      175
+    ],
+    "streetZ": [
+      -233,
+      -163,
+      -93,
+      -23,
+      48,
+      119,
+      150
+    ],
+    "closures": {
+      "odd": {
+        "x": 35,
+        "z": 70,
+        "w": 19,
+        "d": 3
+      },
+      "even": {
+        "x": -35,
+        "z": -5,
+        "w": 19,
+        "d": 3
+      }
+    },
+    "collisionMaps": {
+      "odd": [
+        {
+          "kind": "ground",
+          "min": [
+            -190,
+            -2,
+            -281
+          ],
+          "max": [
+            190,
+            0,
+            169
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -154.37264432141092,
+            0,
+            -212.2183254621923
+          ],
+          "max": [
+            -125.62735567858908,
+            32.25538308592513,
+            -183.7816745378077
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -154.28183849318884,
+            0,
+            -141.2899336280534
+          ],
+          "max": [
+            -125.71816150681116,
+            40.346384739736095,
+            -114.7100663719466
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -152.60888005199376,
+            0,
+            -72.46051408885978
+          ],
+          "max": [
+            -127.39111994800624,
+            28.840064498595893,
+            -43.53948591114022
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -153.52630825247616,
+            0,
+            -2.1792009802302346
+          ],
+          "max": [
+            -126.47369174752384,
+            34.48920690896921,
+            26.179200980230235
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            60.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -154.97848640370648,
+            0,
+            66.0619125799276
+          ],
+          "max": [
+            -125.02151359629352,
+            39.276357328053564,
+            101.9380874200724
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -84.97596545726992,
+            0,
+            -212.75016907800455
+          ],
+          "max": [
+            -55.02403454273008,
+            20.984027075814083,
+            -183.24983092199545
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -86.61042853083927,
+            0,
+            -144.61136436392553
+          ],
+          "max": [
+            -53.38957146916073,
+            37.314044047147036,
+            -111.38863563607447
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -89,
+            0,
+            -77
+          ],
+          "max": [
+            -51,
+            29,
+            -39
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -82.55307714221999,
+            0,
+            -4.333908389206044
+          ],
+          "max": [
+            -57.44692285778001,
+            49.81382981291972,
+            28.333908389206044
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            60.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -81.7200486123329,
+            0,
+            71.40464054141194
+          ],
+          "max": [
+            -58.2799513876671,
+            44.37591008702293,
+            96.59535945858806
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -13.417457620380446,
+            0,
+            -212.52726375090424
+          ],
+          "max": [
+            13.417457620380446,
+            25.42348872148432,
+            -183.47273624909576
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -13.12420352420304,
+            0,
+            -143.58941601286642
+          ],
+          "max": [
+            13.12420352420304,
+            46.376494218595326,
+            -112.41058398713358
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -13.536923080682755,
+            0,
+            -71.00653215718921
+          ],
+          "max": [
+            13.536923080682755,
+            37.339549832744524,
+            -44.99346784281079
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -19,
+            0,
+            -7
+          ],
+          "max": [
+            19,
+            18,
+            31
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            60.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -19,
+            0,
+            65
+          ],
+          "max": [
+            19,
+            12,
+            103
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            59.58473060571123,
+            0,
+            -214.81783320428804
+          ],
+          "max": [
+            80.41526939428877,
+            41.84032318694517,
+            -181.18216679571196
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            51,
+            0,
+            -147
+          ],
+          "max": [
+            89,
+            39,
+            -109
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            54.8718695982825,
+            0,
+            -72.62377146736253
+          ],
+          "max": [
+            85.1281304017175,
+            38.09285619598813,
+            -43.37622853263747
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            54.994011863018386,
+            0,
+            -3.6176565682981163
+          ],
+          "max": [
+            85.00598813698161,
+            37.41692063771188,
+            27.617656568298116
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            60.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            51,
+            0,
+            65
+          ],
+          "max": [
+            89,
+            22,
+            103
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            127.79166026739404,
+            0,
+            -215.16873564000707
+          ],
+          "max": [
+            152.20833973260596,
+            32.002729473402724,
+            -180.83126435999293
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            127.33320096565876,
+            0,
+            -144.70872709341347
+          ],
+          "max": [
+            152.66679903434124,
+            13.353747562039644,
+            -111.29127290658653
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            124.21083226450719,
+            0,
+            -75.3693735046545
+          ],
+          "max": [
+            155.7891677354928,
+            38.99763529957272,
+            -40.630626495345496
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            128.78412735124584,
+            0,
+            -6.232353668427095
+          ],
+          "max": [
+            151.21587264875416,
+            32.80366117414087,
+            30.232353668427095
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            60.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            127.2590430220589,
+            0,
+            71.40701176098082
+          ],
+          "max": [
+            152.7409569779411,
+            18.14628260093741,
+            96.59298823901918
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -184.1,
+            0.09999999999999998,
+            -196.22489480115473
+          ],
+          "max": [
+            -182.29999999999998,
+            1.2999999999999998,
+            -192.22489480115473
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -97.7,
+            0.09999999999999998,
+            -145.3130624005571
+          ],
+          "max": [
+            -95.89999999999999,
+            1.2999999999999998,
+            -141.3130624005571
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -44.1,
+            0.09999999999999998,
+            72.51354237273335
+          ],
+          "max": [
+            -42.300000000000004,
+            1.2999999999999998,
+            76.51354237273335
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            182.29999999999998,
+            0.09999999999999998,
+            -69.25880340207368
+          ],
+          "max": [
+            184.1,
+            1.2999999999999998,
+            -65.25880340207368
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -184.1,
+            0.09999999999999998,
+            -52.02700701355934
+          ],
+          "max": [
+            -182.29999999999998,
+            1.2999999999999998,
+            -48.02700701355934
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -97.7,
+            0.09999999999999998,
+            -76.14341518189758
+          ],
+          "max": [
+            -95.89999999999999,
+            1.2999999999999998,
+            -72.14341518189758
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -44.1,
+            0.09999999999999998,
+            -0.4498183894902468
+          ],
+          "max": [
+            -42.300000000000004,
+            1.2999999999999998,
+            3.5501816105097532
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            42.300000000000004,
+            0.09999999999999998,
+            -56.24893657211214
+          ],
+          "max": [
+            44.1,
+            1.2999999999999998,
+            -52.24893657211214
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            95.89999999999999,
+            0.09999999999999998,
+            136.55813471600413
+          ],
+          "max": [
+            97.7,
+            1.2999999999999998,
+            140.55813471600413
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -184.1,
+            0.09999999999999998,
+            90.51941421069205
+          ],
+          "max": [
+            -182.29999999999998,
+            1.2999999999999998,
+            94.51941421069205
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -97.7,
+            0.09999999999999998,
+            5.644881862215698
+          ],
+          "max": [
+            -95.89999999999999,
+            1.2999999999999998,
+            9.644881862215698
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -44.1,
+            0.09999999999999998,
+            -135.31246573477983
+          ],
+          "max": [
+            -42.300000000000004,
+            1.2999999999999998,
+            -131.31246573477983
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            182.29999999999998,
+            0.09999999999999998,
+            -70.99264751467854
+          ],
+          "max": [
+            184.1,
+            1.2999999999999998,
+            -66.99264751467854
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -184.1,
+            0.09999999999999998,
+            21.10145938768983
+          ],
+          "max": [
+            -182.29999999999998,
+            1.2999999999999998,
+            25.10145938768983
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            42.300000000000004,
+            0.09999999999999998,
+            -149.0886801974848
+          ],
+          "max": [
+            44.1,
+            1.2999999999999998,
+            -145.0886801974848
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -97.7,
+            0.09999999999999998,
+            5.089403099380434
+          ],
+          "max": [
+            -95.89999999999999,
+            1.2999999999999998,
+            9.089403099380434
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -44.1,
+            0.09999999999999998,
+            -203.60017410293221
+          ],
+          "max": [
+            -42.300000000000004,
+            1.2999999999999998,
+            -199.60017410293221
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            42.300000000000004,
+            0.09999999999999998,
+            -202.0928535638377
+          ],
+          "max": [
+            44.1,
+            1.2999999999999998,
+            -198.0928535638377
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            95.89999999999999,
+            0.09999999999999998,
+            10.627482721582055
+          ],
+          "max": [
+            97.7,
+            1.2999999999999998,
+            14.627482721582055
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            182.29999999999998,
+            0.09999999999999998,
+            28.38297105114907
+          ],
+          "max": [
+            184.1,
+            1.2999999999999998,
+            32.38297105114907
+          ]
+        },
+        {
+          "kind": "closure",
+          "min": [
+            25.5,
+            0,
+            68.5
+          ],
+          "max": [
+            44.5,
+            2,
+            71.5
+          ]
+        }
+      ],
+      "even": [
+        {
+          "kind": "ground",
+          "min": [
+            -190,
+            -2,
+            -281
+          ],
+          "max": [
+            190,
+            0,
+            169
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -154.37264432141092,
+            0,
+            -212.2183254621923
+          ],
+          "max": [
+            -125.62735567858908,
+            32.25538308592513,
+            -183.7816745378077
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -154.28183849318884,
+            0,
+            -141.2899336280534
+          ],
+          "max": [
+            -125.71816150681116,
+            40.346384739736095,
+            -114.7100663719466
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -152.60888005199376,
+            0,
+            -72.46051408885978
+          ],
+          "max": [
+            -127.39111994800624,
+            28.840064498595893,
+            -43.53948591114022
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -153.52630825247616,
+            0,
+            -2.1792009802302346
+          ],
+          "max": [
+            -126.47369174752384,
+            34.48920690896921,
+            26.179200980230235
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -163.5,
+            0,
+            60.5
+          ],
+          "max": [
+            -116.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -154.97848640370648,
+            0,
+            66.0619125799276
+          ],
+          "max": [
+            -125.02151359629352,
+            39.276357328053564,
+            101.9380874200724
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -84.97596545726992,
+            0,
+            -212.75016907800455
+          ],
+          "max": [
+            -55.02403454273008,
+            20.984027075814083,
+            -183.24983092199545
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -86.61042853083927,
+            0,
+            -144.61136436392553
+          ],
+          "max": [
+            -53.38957146916073,
+            37.314044047147036,
+            -111.38863563607447
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -89,
+            0,
+            -77
+          ],
+          "max": [
+            -51,
+            29,
+            -39
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -82.55307714221999,
+            0,
+            -4.333908389206044
+          ],
+          "max": [
+            -57.44692285778001,
+            49.81382981291972,
+            28.333908389206044
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -93.5,
+            0,
+            60.5
+          ],
+          "max": [
+            -46.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -81.7200486123329,
+            0,
+            71.40464054141194
+          ],
+          "max": [
+            -58.2799513876671,
+            44.37591008702293,
+            96.59535945858806
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -13.417457620380446,
+            0,
+            -212.52726375090424
+          ],
+          "max": [
+            13.417457620380446,
+            25.42348872148432,
+            -183.47273624909576
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -13.12420352420304,
+            0,
+            -143.58941601286642
+          ],
+          "max": [
+            13.12420352420304,
+            46.376494218595326,
+            -112.41058398713358
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -13.536923080682755,
+            0,
+            -71.00653215718921
+          ],
+          "max": [
+            13.536923080682755,
+            37.339549832744524,
+            -44.99346784281079
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -19,
+            0,
+            -7
+          ],
+          "max": [
+            19,
+            18,
+            31
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            -23.5,
+            0,
+            60.5
+          ],
+          "max": [
+            23.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            -19,
+            0,
+            65
+          ],
+          "max": [
+            19,
+            12,
+            103
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            59.58473060571123,
+            0,
+            -214.81783320428804
+          ],
+          "max": [
+            80.41526939428877,
+            41.84032318694517,
+            -181.18216679571196
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            51,
+            0,
+            -147
+          ],
+          "max": [
+            89,
+            39,
+            -109
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            54.8718695982825,
+            0,
+            -72.62377146736253
+          ],
+          "max": [
+            85.1281304017175,
+            38.09285619598813,
+            -43.37622853263747
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            54.994011863018386,
+            0,
+            -3.6176565682981163
+          ],
+          "max": [
+            85.00598813698161,
+            37.41692063771188,
+            27.617656568298116
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            46.5,
+            0,
+            60.5
+          ],
+          "max": [
+            93.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            51,
+            0,
+            65
+          ],
+          "max": [
+            89,
+            22,
+            103
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            -221.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            -174.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            127.79166026739404,
+            0,
+            -215.16873564000707
+          ],
+          "max": [
+            152.20833973260596,
+            32.002729473402724,
+            -180.83126435999293
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            -151.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            -104.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            127.33320096565876,
+            0,
+            -144.70872709341347
+          ],
+          "max": [
+            152.66679903434124,
+            13.353747562039644,
+            -111.29127290658653
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            -81.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            -34.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            124.21083226450719,
+            0,
+            -75.3693735046545
+          ],
+          "max": [
+            155.7891677354928,
+            38.99763529957272,
+            -40.630626495345496
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            -11.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            35.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            128.78412735124584,
+            0,
+            -6.232353668427095
+          ],
+          "max": [
+            151.21587264875416,
+            32.80366117414087,
+            30.232353668427095
+          ]
+        },
+        {
+          "kind": "foundation",
+          "min": [
+            116.5,
+            0,
+            60.5
+          ],
+          "max": [
+            163.5,
+            0.4,
+            107.5
+          ]
+        },
+        {
+          "kind": "building",
+          "min": [
+            127.2590430220589,
+            0,
+            71.40701176098082
+          ],
+          "max": [
+            152.7409569779411,
+            18.14628260093741,
+            96.59298823901918
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -184.1,
+            0.09999999999999998,
+            -196.22489480115473
+          ],
+          "max": [
+            -182.29999999999998,
+            1.2999999999999998,
+            -192.22489480115473
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -97.7,
+            0.09999999999999998,
+            -145.3130624005571
+          ],
+          "max": [
+            -95.89999999999999,
+            1.2999999999999998,
+            -141.3130624005571
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -44.1,
+            0.09999999999999998,
+            72.51354237273335
+          ],
+          "max": [
+            -42.300000000000004,
+            1.2999999999999998,
+            76.51354237273335
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            182.29999999999998,
+            0.09999999999999998,
+            -69.25880340207368
+          ],
+          "max": [
+            184.1,
+            1.2999999999999998,
+            -65.25880340207368
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -184.1,
+            0.09999999999999998,
+            -52.02700701355934
+          ],
+          "max": [
+            -182.29999999999998,
+            1.2999999999999998,
+            -48.02700701355934
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -97.7,
+            0.09999999999999998,
+            -76.14341518189758
+          ],
+          "max": [
+            -95.89999999999999,
+            1.2999999999999998,
+            -72.14341518189758
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -44.1,
+            0.09999999999999998,
+            -0.4498183894902468
+          ],
+          "max": [
+            -42.300000000000004,
+            1.2999999999999998,
+            3.5501816105097532
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            42.300000000000004,
+            0.09999999999999998,
+            -56.24893657211214
+          ],
+          "max": [
+            44.1,
+            1.2999999999999998,
+            -52.24893657211214
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            95.89999999999999,
+            0.09999999999999998,
+            136.55813471600413
+          ],
+          "max": [
+            97.7,
+            1.2999999999999998,
+            140.55813471600413
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -184.1,
+            0.09999999999999998,
+            90.51941421069205
+          ],
+          "max": [
+            -182.29999999999998,
+            1.2999999999999998,
+            94.51941421069205
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -97.7,
+            0.09999999999999998,
+            5.644881862215698
+          ],
+          "max": [
+            -95.89999999999999,
+            1.2999999999999998,
+            9.644881862215698
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -44.1,
+            0.09999999999999998,
+            -135.31246573477983
+          ],
+          "max": [
+            -42.300000000000004,
+            1.2999999999999998,
+            -131.31246573477983
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            182.29999999999998,
+            0.09999999999999998,
+            -70.99264751467854
+          ],
+          "max": [
+            184.1,
+            1.2999999999999998,
+            -66.99264751467854
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -184.1,
+            0.09999999999999998,
+            21.10145938768983
+          ],
+          "max": [
+            -182.29999999999998,
+            1.2999999999999998,
+            25.10145938768983
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            42.300000000000004,
+            0.09999999999999998,
+            -149.0886801974848
+          ],
+          "max": [
+            44.1,
+            1.2999999999999998,
+            -145.0886801974848
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -97.7,
+            0.09999999999999998,
+            5.089403099380434
+          ],
+          "max": [
+            -95.89999999999999,
+            1.2999999999999998,
+            9.089403099380434
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            -44.1,
+            0.09999999999999998,
+            -203.60017410293221
+          ],
+          "max": [
+            -42.300000000000004,
+            1.2999999999999998,
+            -199.60017410293221
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            42.300000000000004,
+            0.09999999999999998,
+            -202.0928535638377
+          ],
+          "max": [
+            44.1,
+            1.2999999999999998,
+            -198.0928535638377
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            95.89999999999999,
+            0.09999999999999998,
+            10.627482721582055
+          ],
+          "max": [
+            97.7,
+            1.2999999999999998,
+            14.627482721582055
+          ]
+        },
+        {
+          "kind": "parked vehicle",
+          "min": [
+            182.29999999999998,
+            0.09999999999999998,
+            28.38297105114907
+          ],
+          "max": [
+            184.1,
+            1.2999999999999998,
+            32.38297105114907
+          ]
+        },
+        {
+          "kind": "closure",
+          "min": [
+            -44.5,
+            0,
+            -6.5
+          ],
+          "max": [
+            -25.5,
+            2,
+            -3.5
+          ]
+        }
+      ]
+    }
+  }
+}

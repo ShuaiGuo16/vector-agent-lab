@@ -1,0 +1,19 @@
+{
+  "MODEL_PROVIDER": "openrouter",
+  "PLANNER_MODEL": "openai/gpt-6.1-sol",
+  "AZURE_LLM_DEPLOYMENT": "gpt-6.1-sol",
+  "DECISION_PROVIDER": "openrouter",
+  "DECISION_MODEL": "typesafe/jev-1.14",
+  "REVIEW_PROVIDER": "openrouter",
+  "REVIEW_MODEL": "openai/gpt-6-luna",
+  "PLANNER_REASONING_EFFORT": "medium",
+  "DECISION_INTERVAL_MS": 4000,
+  "ACTION_MAX_AGE_MS": 2250,
+  "REVIEW_SCHEDULE": "planned",
+  "PLANNER_TIMEOUT_MS": 180000,
+  "DECISION_TIMEOUT_MS": 5000,
+  "PLANNER_MAX_OUTPUT_TOKENS": 16000,
+  "MAX_TRANSIENT_RETRIES": 1,
+  "API_RETRY_DELAY_MS": 250,
+  "MAX_API_CALLS_PER_RUN": 3000
+}

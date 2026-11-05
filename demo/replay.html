@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VECTOR · Replay studio</title><link rel="icon" href="../icon.svg"></head>
+<body><canvas id="scene" aria-label="Recorded VECTOR run"></canvas><div class="replay-shade"></div>
+  <aside id="responses"><div><span id="planner-model">PLANNER</span><strong id="route">—</strong></div><div><span id="decision-model">DECISION MODEL</span><strong id="action">—</strong></div></aside>
+  <section id="instruments" aria-label="Recorded vehicle dashboard"></section>
+  <section id="studio" aria-label="Replay controls"><div class="studio-heading"><strong>VECTOR / REPLAY</strong><label class="file-label">OPEN TRACE<input id="file" type="file" accept=".json,application/json"></label></div><p id="status" role="status">Open an exported run trace to begin.</p>
+    <div class="clip-settings"><label>FROM · SEC<input id="from" type="number" min="0" step="0.1" value="0"></label><label>TO · SEC<input id="to" type="number" min="0" step="0.1" value="30"></label><label>VIDEO FPS<select id="fps"><option>30</option><option>60</option></select></label></div>
+    <input id="scrub" aria-label="Replay position" type="range" min="0" max="1" step="0.01" value="0" disabled>
+    <div class="studio-buttons"><button id="play" disabled>PLAY CLIP</button><button id="record" disabled>RECORD WEBM</button><label><input id="show-responses" type="checkbox" checked> Model responses</label><button id="stop" hidden>STOP RECORDING</button></div>
+    <a id="download" hidden>DOWNLOAD VIDEO</a>
+  </section>
+  <script type="module" src="./replay.ts"></script>
+</body></html>

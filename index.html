@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111e24"><title>VECTOR · Drive beyond</title><link rel="icon" href="./icon.svg"></head>
+<body>
+  <canvas id="world" aria-label="Drive and fly through the city"></canvas><div class="shade"></div>
+  <header><a class="brand" href="./">V<span>VECTOR<small>DRIVE BEYOND</small></span></a><nav aria-label="Game controls"><button id="sound" aria-pressed="false">SOUND OFF</button><button id="camera" aria-pressed="false">WIDE VIEW</button><button id="pause" disabled>PAUSE</button></nav></header>
+  <div id="objective" class="hidden"><span id="objective-label">RESTORE THE CITY</span><span id="progress">0 / 3</span><i id="objective-hint">Drive through the departure line</i></div>
+  <section id="menu" aria-labelledby="menu-title"><span class="eyebrow" id="menu-eyebrow">STREETS BELOW. SKY ABOVE.</span><h1 id="menu-title">Drive<br><em>beyond.</em></h1><p id="menu-copy">Take the streets. Lift above the skyline.<br>Bring three rooftops back to life.</p><button id="play" class="primary" disabled>LOADING…</button><button id="restart" class="hidden secondary">START AGAIN</button><small id="menu-help">WASD to drive · Space to rise · Shift to descend</small></section>
+  <section id="instruments" aria-label="Vehicle dashboard"></section>
+  <div id="notice" role="status" aria-live="polite"></div>
+  <footer><span><kbd>WASD</kbd> DRIVE <kbd>SPACE</kbd> RISE <kbd>SHIFT</kbd> DESCEND</span><span><kbd>C</kbd> VIEW <kbd>R</kbd> RECOVER <kbd>ESC</kbd> PAUSE</span></footer>
+  <script type="module" src="./src/main.ts"></script>
+</body></html>

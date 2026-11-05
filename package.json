@@ -1,0 +1,37 @@
+{
+  "name": "vector-agent-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5176 --strictPort",
+    "start": "tsx server/game.ts",
+    "build": "tsc --noEmit && vite build",
+    "test": "tsx --test tests/*.test.ts",
+    "evaluate": "tsx scripts/evaluate.ts",
+    "python:contract": "tsx scripts/export-python-contract.ts",
+    "python:contract:check": "tsx scripts/export-python-contract.ts --check",
+    "agent:serve": "tsx server/index.ts",
+    "agent:run": ".venv/Scripts/python.exe -X utf8 scripts/run-parallel.py --count 1",
+    "baseline": "tsx scripts/evaluate.ts",
+    "replay:export": ".venv/Scripts/python.exe -X utf8 scripts/export-demo-trace.py",
+    "replay": "tsx server/game.ts --port 5178 --replay-data runs/demo/trace.json --replay"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "0.19.3",
+    "@fastify/static": "^10.1.6",
+    "dotenv": "^17.2.0",
+    "fastify": "^5.6.0",
+    "three": "0.180.0",
+    "ws": "^8.18.0",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/three": "^0.180.0",
+    "@types/ws": "^8.18.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12"
+  }
+}

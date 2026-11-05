@@ -1,0 +1,127 @@
+{
+  "goal_strategy": {
+    "type": "json_schema",
+    "name": "goal_strategy",
+    "strict": true,
+    "schema": {
+      "$defs": {
+        "GoalOutput": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "description": "Unique stable identity. Retain an installed ID only for the same goal with unchanged kind, target and position; speed/guidance can change. Give changed or new goals new IDs. Never reuse completed IDs for new work.",
+              "minLength": 1,
+              "title": "Id",
+              "type": "string"
+            },
+            "kind": {
+              "description": "drive/fly are transit points. relay is landing and activation; charge is landing and replenishment; depot is the terminal return. A journey can freely mix drive and fly goals.",
+              "enum": [
+                "drive",
+                "fly",
+                "relay",
+                "charge",
+                "depot"
+              ],
+              "title": "Kind",
+              "type": "string"
+            },
+            "target": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "relay-1",
+                    "relay-2",
+                    "relay-3",
+                    "charger",
+                    "depot"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Station ID for relay/charge/depot goals; null for drive/fly. relay uses a relay ID, charge uses charger, depot uses depot.",
+              "title": "Target"
+            },
+            "position": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Desired vehicle-center xyz for drive/fly; null for station goals, whose exact station center and surface are supplied. Choose obstacle clearance from full geometry and body bounds. Transit completion is distance <2 m; drive additionally requires wheel contact. No speed/dwell requirement or altitude floor.",
+              "title": "Position"
+            },
+            "speed": {
+              "description": "Horizontal speed cap in m/s for DRIVE (also capped at 8, 3.5 in turns) and CRUISE. APPROACH remains capped at 4 and DESCEND at 1.4.",
+              "maximum": 14,
+              "minimum": 0.5,
+              "title": "Speed",
+              "type": "number"
+            },
+            "guidance": {
+              "description": "Only this goal's local priorities/trade-offs for the decision model; empty when the coordinates and supplied mechanics suffice. No reusable controller or repetition of maneuver mechanics.",
+              "items": {
+                "type": "string"
+              },
+              "title": "Guidance",
+              "type": "array"
+            },
+            "reviewAfter": {
+              "description": "For relay/charge, request an early review as this station goal begins, then wait grounded there after actual completion until the review is ready. Ignored on other goal kinds. In every_relay scheduling, every relay is reviewed regardless of this field.",
+              "title": "Reviewafter",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "target",
+            "position",
+            "speed",
+            "guidance",
+            "reviewAfter"
+          ],
+          "title": "GoalOutput",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "disposition": {
+          "description": "Initial planning must revise. On review, keep retains the installed plan and uses goals=[]; revise replaces the remaining goals and their guidance. Completed IDs remain completed even if retained in a revision.",
+          "enum": [
+            "keep",
+            "revise"
+          ],
+          "title": "Disposition",
+          "type": "string"
+        },
+        "goals": {
+          "description": "For revise, the remaining ordered goals from the current state through every unfinished relay and terminal depot, with charging if chosen. When departureComplete is false, include the mandatory grounded departure using ordinary drive goals; the engine does not insert it. For keep, empty. For reviews, review.application identifies whether installation waits for completion of a named goal or occurs on response against the current execution state. For completion-gated reviews, plan onward from that completed goal.",
+          "items": {
+            "$ref": "#/$defs/GoalOutput"
+          },
+          "title": "Goals",
+          "type": "array"
+        }
+      },
+      "required": [
+        "disposition",
+        "goals"
+      ],
+      "title": "GoalStrategy",
+      "type": "object"
+    }
+  }
+}

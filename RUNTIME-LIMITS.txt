@@ -1,0 +1,31 @@
+CURRENT AI CANDIDATE — SEPARATE COMMAND-LINE RUNNER
+======================================
+Source settings: config/working-candidate.json (shared launcher/harness).
+Initial: OpenRouter GPT-6.1 Sol, medium. Review: OpenRouter GPT-6 Luna, medium.
+Immediate control: OpenRouter Jev1.14, nominal requests every4000 ms.
+Goal/plan transitions request immediately; one decision request in flight.
+Incoming response maximum age2250 ms, plus matching run/sequence/goal/plan identity.
+An accepted command continues until replaced or goal/plan changes. It has no
+polling-interval TTL. The shared tracker/stabilizer runs at120 Hz.
+Six distinct live choices. BRAKE remains readable as historical telemetry only.
+
+Planner-selected station reviews start before landing/activation/charging finishes.
+After measured completion, Jev maintains a distinct grounded stationary wait goal
+until the response installs. Physics/time remain live. Existing no-progress review:
+15 s without displacement>3 m, energy gain>3, or goal progress; at least20 s since
+last planner dispatch. Intentional wait_review excluded. Dispatch cooldown8 s.
+Cancelled pending/prepared reviews release their reservation for resumption.
+
+Planner180000 ms per attempt; decision5000 ms per attempt. HTTP transport is the
+sole deadline owner. At most one transient retry, with its own full attempt budget.
+Backoff250 ms minimum, or longer Retry-After. Backoff is outside attempt budgets.
+Planner output16000 tokens including reasoning. No descriptive character limits.
+Maximum3000 initiated API calls. No mission deadline. Initial planning time is
+recorded separately and excluded from execution time; setup physics/energy freeze.
+
+Costs: one per-attempt record; returned success/failure usage counted exactly once.
+Unknown unreturned usage is explicit. Azure uses the recorded published-rate
+estimate; OpenRouter uses returned charges. No token/usage data enters control.
+
+This release contains the current explicit-goal Python agent.
+Model settings are defined by the checked-in preset and explicit CLI overrides.

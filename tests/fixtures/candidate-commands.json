@@ -1,0 +1,5533 @@
+{
+  "sourceRun": "actuator-regression-fixture",
+  "cases": [
+    {
+      "observation": {
+        "goal": {
+          "id": "engine:departure",
+          "kind": "departure",
+          "target": null,
+          "position": [
+            35,
+            0.6,
+            119
+          ],
+          "speed": 8,
+          "guidance": [],
+          "reviewAfter": false
+        },
+        "completedGoalIds": [],
+        "goalLedger": [],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 0,
+        "flightThrottle": 0,
+        "nozzleThrustLevels": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bodyOrientationQuaternion": [
+          7.354731496889144e-05,
+          2.4851206162357364e-12,
+          -5.600862551524699e-10,
+          1
+        ],
+        "bodyAngularVelocityWorld": [
+          9.87208522928995e-07,
+          1.0696293850642746e-09,
+          7.021181414046396e-09
+        ],
+        "bodyUpWorld": [
+          1.1201728758528372e-09,
+          0.999999989181585,
+          0.00014709462993778288
+        ],
+        "bodyHeadingYawRadians": 4.887855604915432e-12,
+        "targetDwellSeconds": 0,
+        "lastLandingImpact": 0,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 0,
+        "waypoint": {
+          "kind": "departure",
+          "position": [
+            35,
+            0,
+            119
+          ],
+          "distance": 31,
+          "heightAboveSurface": -0.02
+        },
+        "lastAppliedManeuver": "hold",
+        "runId": "actuator-regression-fixture",
+        "seq": 598,
+        "simTime": 0.09999999999999999,
+        "wallElapsedSeconds": 61.92499999999713,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350076950,
+        "position": [
+          35,
+          0.5800649523735046,
+          150
+        ],
+        "velocity": [
+          -1.7465389134940779e-09,
+          -0.03069537878036499,
+          5.684025836671935e-07
+        ],
+        "yaw": -4.060353094851097e-12,
+        "grounded": true,
+        "energy": 100,
+        "speed": 5.684052669686631e-07,
+        "headingError": 4.060353094851097e-12,
+        "distance": 31,
+        "heightAboveTarget": -18.019935047626497,
+        "cruiseAltitude": 0.6,
+        "target": "relay-1",
+        "targetPosition": [
+          0,
+          18,
+          12
+        ],
+        "departureComplete": false,
+        "roadTravelPending": false,
+        "stage": "departure",
+        "completed": [],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 0.09999999999999999,
+        "planVersion": 1,
+        "legIndex": 0,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              119
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              12
+            ],
+            "speed": 10,
+            "guidance": [
+              "Stay in the x=35 street corridor until this waypoint; the subsequent westward segment clears the Glasshouse roof."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              22,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "target": "relay-1",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "glasshouse-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              34,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              34,
+              -58
+            ],
+            "speed": 10,
+            "guidance": [
+              "Follow the direct diagonal from Glasshouse. Do not detour west through the taller building immediately north of Observatory."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "target": "relay-2",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "observatory-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              44,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 10,
+            "guidance": [
+              "Use the direct diagonal. It passes north of the 46.38 m building centered near [0,-128]; a detour across that building is unsafe at this height."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Clear the Highline roof fully before descending into the x=105 street."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "This is a ground-landing waypoint, not an airborne driving segment. Complete the descent within the open street before beginning the long ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Remain near the street centerline; parked vehicles lie off-center. The ground return preserves flight reserve."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along z=150 on the ground."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": null,
+          "wheelThrottle": 1,
+          "horizontalBrake": false,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": 0.023922057151794407,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": 0.01594803810119627,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": -1,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": 0.01594803810119627,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": -1,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": 0.016944790482521038,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": -0.8166669982348405,
+          "liftMode": 0
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "departure-climb",
+          "kind": "fly",
+          "target": null,
+          "position": [
+            35,
+            22,
+            119
+          ],
+          "speed": 4,
+          "guidance": [],
+          "reviewAfter": false
+        },
+        "completedGoalIds": [
+          "engine:departure"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 0,
+        "flightThrottle": 0,
+        "nozzleThrustLevels": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bodyOrientationQuaternion": [
+          -0.0015083096222952008,
+          1.4071059872833303e-09,
+          7.183214439931973e-11,
+          0.9999988675117493
+        ],
+        "bodyAngularVelocityWorld": [
+          -0.05462005361914635,
+          -9.545001455890656e-10,
+          3.4329408205024947e-09
+        ],
+        "bodyUpWorld": [
+          -1.4790882910093762e-10,
+          0.9999954500041666,
+          -0.0030166158283045502
+        ],
+        "bodyHeadingYawRadians": 2.8140049009860637e-09,
+        "targetDwellSeconds": 0,
+        "lastLandingImpact": 0.05848135054111481,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 0,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            35,
+            21.4,
+            119
+          ],
+          "distance": 1.86,
+          "heightAboveSurface": -21.42
+        },
+        "lastAppliedManeuver": "hold",
+        "runId": "actuator-regression-fixture",
+        "seq": 723,
+        "simTime": 13.0249999999999,
+        "wallElapsedSeconds": 74.85000000000564,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350089878,
+        "position": [
+          35,
+          0.5800002217292786,
+          120.86356353759766
+        ],
+        "velocity": [
+          -5.9094587001595755e-09,
+          -0.03275845944881439,
+          -1.8172475099563599
+        ],
+        "yaw": 2.8220593023583158e-09,
+        "grounded": true,
+        "energy": 97.12614373348987,
+        "speed": 1.8172475099563599,
+        "headingError": -2.8220593023583158e-09,
+        "distance": 1.8635635375976562,
+        "heightAboveTarget": -18.019999778270723,
+        "cruiseAltitude": 22,
+        "target": "relay-1",
+        "targetPosition": [
+          0,
+          18,
+          12
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "fly",
+        "completed": [],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 1.883333333333329,
+        "planVersion": 1,
+        "legIndex": 0,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              119
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              12
+            ],
+            "speed": 10,
+            "guidance": [
+              "Stay in the x=35 street corridor until this waypoint; the subsequent westward segment clears the Glasshouse roof."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              22,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "target": "relay-1",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "glasshouse-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              34,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              34,
+              -58
+            ],
+            "speed": 10,
+            "guidance": [
+              "Follow the direct diagonal from Glasshouse. Do not detour west through the taller building immediately north of Observatory."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "target": "relay-2",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "observatory-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              44,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 10,
+            "guidance": [
+              "Use the direct diagonal. It passes north of the 46.38 m building centered near [0,-128]; a detour across that building is unsafe at this height."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Clear the Highline roof fully before descending into the x=105 street."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "This is a ground-landing waypoint, not an airborne driving segment. Complete the descent within the open street before beginning the long ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Remain near the street centerline; parked vehicles lie off-center. The ground return preserves flight reserve."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along z=150 on the ground."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": null,
+          "wheelThrottle": 1,
+          "horizontalBrake": false,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": 6,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": 2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 0.2991059362888338,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": 2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 0.2991059362888338,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": 1,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0.2991059362888338,
+          "liftMode": 0
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "departure-climb",
+          "kind": "fly",
+          "target": null,
+          "position": [
+            35,
+            22,
+            119
+          ],
+          "speed": 4,
+          "guidance": [],
+          "reviewAfter": false
+        },
+        "completedGoalIds": [
+          "engine:departure"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 0,
+        "flightThrottle": 0.3088656628654394,
+        "nozzleThrustLevels": [
+          0.30886567012587224,
+          0.30886566995121134,
+          0.3088656557796675,
+          0.3088656556050066
+        ],
+        "bodyOrientationQuaternion": [
+          4.8448702827386114e-09,
+          2.442849958775306e-12,
+          -1.183659559256256e-10,
+          1
+        ],
+        "bodyAngularVelocityWorld": [
+          -3.714576735092123e-08,
+          -9.539354549337187e-12,
+          1.1437875091502292e-09
+        ],
+        "bodyUpWorld": [
+          2.367319118749218e-10,
+          1,
+          9.689740565476644e-09
+        ],
+        "bodyHeadingYawRadians": 4.8856987706152074e-12,
+        "targetDwellSeconds": 0,
+        "lastLandingImpact": 0.05848135054111481,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 0,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            35,
+            21.4,
+            119
+          ],
+          "distance": 1.42,
+          "heightAboveSurface": -2.66
+        },
+        "lastAppliedManeuver": "climb",
+        "runId": "actuator-regression-fixture",
+        "seq": 762,
+        "simTime": 17.04166666666634,
+        "wallElapsedSeconds": 78.8666666666755,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350093892,
+        "position": [
+          35,
+          19.341026306152344,
+          120.42313385009766
+        ],
+        "velocity": [
+          1.5115533269494108e-09,
+          4.9119462966918945,
+          -0.0013246263843029737
+        ],
+        "yaw": 1.1724112702302316e-12,
+        "grounded": false,
+        "energy": 94.78792730403582,
+        "speed": 0.0013246263843038361,
+        "headingError": -1.1724112702302316e-12,
+        "distance": 1.4231338500976562,
+        "heightAboveTarget": 0.7410263061523438,
+        "cruiseAltitude": 22,
+        "target": "relay-1",
+        "targetPosition": [
+          0,
+          18,
+          12
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "fly",
+        "completed": [],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 2.199999999999995,
+        "planVersion": 1,
+        "legIndex": 0,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              119
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              12
+            ],
+            "speed": 10,
+            "guidance": [
+              "Stay in the x=35 street corridor until this waypoint; the subsequent westward segment clears the Glasshouse roof."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              22,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "target": "relay-1",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "glasshouse-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              34,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              34,
+              -58
+            ],
+            "speed": 10,
+            "guidance": [
+              "Follow the direct diagonal from Glasshouse. Do not detour west through the taller building immediately north of Observatory."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "target": "relay-2",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "observatory-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              44,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 10,
+            "guidance": [
+              "Use the direct diagonal. It passes north of the 46.38 m building centered near [0,-128]; a detour across that building is unsafe at this height."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Clear the Highline roof fully before descending into the x=105 street."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "This is a ground-landing waypoint, not an airborne driving segment. Complete the descent within the open street before beginning the long ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Remain near the street centerline; parked vehicles lie off-center. The ground return preserves flight reserve."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along z=150 on the ground."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": 3.1907684326171872,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": 2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": -0.5803402900656995,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": 2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": -0.5803402900656995,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": 1,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": -0.5803402900656995,
+          "liftMode": -1
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "activate-glasshouse",
+          "kind": "relay",
+          "target": "relay-1",
+          "position": null,
+          "speed": 4,
+          "guidance": [],
+          "reviewAfter": true
+        },
+        "completedGoalIds": [
+          "engine:departure",
+          "departure-climb",
+          "glasshouse-street-approach",
+          "glasshouse-overhead"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          },
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "startedAt": 12.958333333333238,
+            "completedAt": 17.341666666666324,
+            "startEnergy": 97.12614373348987,
+            "endEnergy": 94.69297060590048,
+            "startPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ],
+            "endPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ]
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "startedAt": 17.341666666666324,
+            "completedAt": 31.391666666665525,
+            "startEnergy": 94.69297060590048,
+            "endEnergy": 87.08399259487096,
+            "startPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ],
+            "endPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ]
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "startedAt": 31.391666666665525,
+            "completedAt": 42.18333333333158,
+            "startEnergy": 87.08399259487096,
+            "endEnergy": 81.11917805680001,
+            "startPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ],
+            "endPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 0,
+        "flightThrottle": 0.5068371992774587,
+        "nozzleThrustLevels": [
+          0.3595066592541039,
+          0.35951524180851296,
+          0.6541591567464046,
+          0.6541677393008137
+        ],
+        "bodyOrientationQuaternion": [
+          0.05468863993883133,
+          0.7451236844062805,
+          -0.06157723441720009,
+          0.6618218421936035
+        ],
+        "bodyAngularVelocityWorld": [
+          -0.006339896935969591,
+          0.00043555788579396904,
+          -0.05350501090288162
+        ],
+        "bodyUpWorld": [
+          0.16300591921113838,
+          0.9864347937263401,
+          -0.019377038706226646
+        ],
+        "bodyHeadingYawRadians": 1.689072907697015,
+        "targetDwellSeconds": 0,
+        "lastLandingImpact": 0.05848135054111481,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 0,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            0,
+            18,
+            12
+          ],
+          "distance": 1.83,
+          "heightAboveSurface": 3.4
+        },
+        "lastAppliedManeuver": "hold",
+        "runId": "actuator-regression-fixture",
+        "seq": 1004,
+        "simTime": 42.23333333333158,
+        "wallElapsedSeconds": 104.05833333336221,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350119085,
+        "position": [
+          1.8209620714187622,
+          21.999881744384766,
+          11.782464027404785
+        ],
+        "velocity": [
+          -3.0104708671569824,
+          -4.73056934424676e-05,
+          0.35739466547966003
+        ],
+        "yaw": 1.6892991375165614,
+        "grounded": false,
+        "energy": 81.09131374293369,
+        "speed": 3.031611088004896,
+        "headingError": 0.00039582797753912047,
+        "distance": 1.8339096937741115,
+        "heightAboveTarget": 3.3998817443847655,
+        "cruiseAltitude": 18.64,
+        "target": "relay-1",
+        "targetPosition": [
+          0,
+          18,
+          12
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "relay",
+        "completed": [],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 3.0916666666666583,
+        "planVersion": 1,
+        "legIndex": 3,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              119
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              12
+            ],
+            "speed": 10,
+            "guidance": [
+              "Stay in the x=35 street corridor until this waypoint; the subsequent westward segment clears the Glasshouse roof."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              22,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "target": "relay-1",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "glasshouse-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              34,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              34,
+              -58
+            ],
+            "speed": 10,
+            "guidance": [
+              "Follow the direct diagonal from Glasshouse. Do not detour west through the taller building immediately north of Observatory."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "target": "relay-2",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "observatory-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              44,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 10,
+            "guidance": [
+              "Use the direct diagonal. It passes north of the 46.38 m building centered near [0,-128]; a detour across that building is unsafe at this height."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Clear the Highline roof fully before descending into the x=105 street."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "This is a ground-landing waypoint, not an airborne driving segment. Complete the descent within the open street before beginning the long ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Remain near the street centerline; parked vehicles lie off-center. The ground return preserves flight reserve."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along z=150 on the ground."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": -1,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": -2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 1,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": -2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 1,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": -2.8898994827270497,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 1,
+          "liftMode": -1
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "activate-glasshouse",
+          "kind": "relay",
+          "target": "relay-1",
+          "position": null,
+          "speed": 4,
+          "guidance": [],
+          "reviewAfter": true
+        },
+        "completedGoalIds": [
+          "engine:departure",
+          "departure-climb",
+          "glasshouse-street-approach",
+          "glasshouse-overhead"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          },
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "startedAt": 12.958333333333238,
+            "completedAt": 17.341666666666324,
+            "startEnergy": 97.12614373348987,
+            "endEnergy": 94.69297060590048,
+            "startPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ],
+            "endPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ]
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "startedAt": 17.341666666666324,
+            "completedAt": 31.391666666665525,
+            "startEnergy": 94.69297060590048,
+            "endEnergy": 87.08399259487096,
+            "startPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ],
+            "endPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ]
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "startedAt": 31.391666666665525,
+            "completedAt": 42.18333333333158,
+            "startEnergy": 87.08399259487096,
+            "endEnergy": 81.11917805680001,
+            "startPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ],
+            "endPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 0,
+        "flightThrottle": 0,
+        "nozzleThrustLevels": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bodyOrientationQuaternion": [
+          3.683016257127747e-05,
+          0.8645675182342529,
+          -6.501051393570378e-05,
+          0.5025166273117065
+        ],
+        "bodyAngularVelocityWorld": [
+          4.00398021156434e-05,
+          -5.327643179953157e-07,
+          3.539755925885402e-05
+        ],
+        "bodyUpWorld": [
+          0.000129022052906368,
+          0.9999999888343444,
+          -7.539641922772906e-05
+        ],
+        "bodyHeadingYawRadians": 2.088578247168919,
+        "targetDwellSeconds": 0.7166666666666666,
+        "lastLandingImpact": 0.2170110046863556,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 0,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            0,
+            18,
+            12
+          ],
+          "distance": 0.03,
+          "heightAboveSurface": -0.02
+        },
+        "lastAppliedManeuver": "descend",
+        "runId": "actuator-regression-fixture",
+        "seq": 1043,
+        "simTime": 46.26666666666468,
+        "wallElapsedSeconds": 108.09166666669876,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350123118,
+        "position": [
+          -0.02759493514895439,
+          18.580142974853516,
+          11.994758605957031
+        ],
+        "velocity": [
+          -2.0912488253088668e-05,
+          -0.031274501234292984,
+          2.4520337319700047e-05
+        ],
+        "yaw": 2.0885782471853416,
+        "grounded": true,
+        "energy": 79.28200877397086,
+        "speed": 3.22269934559128e-05,
+        "headingError": 2.4361062749452578,
+        "distance": 0.028088301076937112,
+        "heightAboveTarget": -0.019857025146484353,
+        "cruiseAltitude": 18.64,
+        "target": "relay-1",
+        "targetPosition": [
+          0,
+          18,
+          12
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "relay",
+        "completed": [],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 3.4749999999999903,
+        "planVersion": 1,
+        "legIndex": 3,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              119
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              12
+            ],
+            "speed": 10,
+            "guidance": [
+              "Stay in the x=35 street corridor until this waypoint; the subsequent westward segment clears the Glasshouse roof."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              22,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "target": "relay-1",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "glasshouse-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              34,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              34,
+              -58
+            ],
+            "speed": 10,
+            "guidance": [
+              "Follow the direct diagonal from Glasshouse. Do not detour west through the taller building immediately north of Observatory."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "target": "relay-2",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "observatory-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              44,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 10,
+            "guidance": [
+              "Use the direct diagonal. It passes north of the 46.38 m building centered near [0,-128]; a detour across that building is unsafe at this height."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Clear the Highline roof fully before descending into the x=105 street."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "This is a ground-landing waypoint, not an airborne driving segment. Complete the descent within the open street before beginning the long ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Remain near the street centerline; parked vehicles lie off-center. The ground return preserves flight reserve."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along z=150 on the ground."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": null,
+          "wheelThrottle": 1,
+          "horizontalBrake": false,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": 0.07182843017578193,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": 0.04788562011718796,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 0.008749283040549791,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": 0.04788562011718796,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 0.008749283040549791,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": 0.016878471374512927,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0.008749283040549791,
+          "liftMode": 0
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "activate-glasshouse:review",
+          "kind": "wait_review",
+          "target": "relay-1",
+          "position": [
+            0,
+            18.6,
+            12
+          ],
+          "speed": 4,
+          "guidance": [],
+          "reviewAfter": false
+        },
+        "completedGoalIds": [
+          "engine:departure",
+          "departure-climb",
+          "glasshouse-street-approach",
+          "glasshouse-overhead",
+          "activate-glasshouse"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          },
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "startedAt": 12.958333333333238,
+            "completedAt": 17.341666666666324,
+            "startEnergy": 97.12614373348987,
+            "endEnergy": 94.69297060590048,
+            "startPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ],
+            "endPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ]
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "startedAt": 17.341666666666324,
+            "completedAt": 31.391666666665525,
+            "startEnergy": 94.69297060590048,
+            "endEnergy": 87.08399259487096,
+            "startPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ],
+            "endPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ]
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "startedAt": 31.391666666665525,
+            "completedAt": 42.18333333333158,
+            "startEnergy": 87.08399259487096,
+            "endEnergy": 81.11917805680001,
+            "startPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ],
+            "endPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ]
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "startedAt": 42.18333333333158,
+            "completedAt": 48.05833333333125,
+            "startEnergy": 81.11917805680001,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ],
+            "endPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": true,
+        "relayHandoffWaitSeconds": 0.09166666666666666,
+        "flightThrottle": 0,
+        "nozzleThrustLevels": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bodyOrientationQuaternion": [
+          3.7023120967205614e-05,
+          0.8645675182342529,
+          -6.370043411152437e-05,
+          0.5025166273117065
+        ],
+        "bodyAngularVelocityWorld": [
+          -4.696306898921421e-09,
+          2.7805807434333474e-08,
+          2.940304888454648e-08
+        ],
+        "bodyUpWorld": [
+          0.0001280390302398366,
+          0.9999999891430864,
+          -7.293718469850337e-05
+        ],
+        "bodyHeadingYawRadians": 2.0885782471580887,
+        "targetDwellSeconds": 2.508333333333327,
+        "lastLandingImpact": 0.2170110046863556,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 0,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            0,
+            18,
+            12
+          ],
+          "distance": 0.03,
+          "heightAboveSurface": -0.02
+        },
+        "lastAppliedManeuver": "hold",
+        "runId": "actuator-regression-fixture",
+        "seq": 1061,
+        "simTime": 48.14999999999791,
+        "wallElapsedSeconds": 109.97500000003359,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350125000,
+        "position": [
+          -0.027595505118370056,
+          18.580062866210938,
+          11.994758605957031
+        ],
+        "velocity": [
+          2.6731754587672185e-08,
+          -0.03064514696598053,
+          -8.73468692930146e-08
+        ],
+        "yaw": 2.088578247158112,
+        "grounded": true,
+        "energy": 79.28200877397086,
+        "speed": 9.134583886870003e-08,
+        "headingError": 2.436110061479468,
+        "distance": 0.028088861035144453,
+        "heightAboveTarget": -0.019937133789062478,
+        "cruiseAltitude": 18.6,
+        "target": "relay-1",
+        "targetPosition": [
+          0,
+          18,
+          12
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "wait_review",
+        "completed": [
+          "relay-1"
+        ],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 3.5666666666666567,
+        "planVersion": 1,
+        "legIndex": 3,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              119
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              35,
+              22,
+              12
+            ],
+            "speed": 10,
+            "guidance": [
+              "Stay in the x=35 street corridor until this waypoint; the subsequent westward segment clears the Glasshouse roof."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              22,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "target": "relay-1",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "glasshouse-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              0,
+              34,
+              12
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              34,
+              -58
+            ],
+            "speed": 10,
+            "guidance": [
+              "Follow the direct diagonal from Glasshouse. Do not detour west through the taller building immediately north of Observatory."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "target": "relay-2",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "observatory-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              44,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 10,
+            "guidance": [
+              "Use the direct diagonal. It passes north of the 46.38 m building centered near [0,-128]; a detour across that building is unsafe at this height."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              44,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Clear the Highline roof fully before descending into the x=105 street."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "This is a ground-landing waypoint, not an airborne driving segment. Complete the descent within the open street before beginning the long ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Remain near the street centerline; parked vehicles lie off-center. The ground return preserves flight reserve."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along z=150 on the ground."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": null,
+          "wheelThrottle": 1,
+          "horizontalBrake": false,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": 0.023924560546876705,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": 0.015949707031251138,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 0.008731767009742167,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": 0.015949707031251138,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 0.008731767009742167,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": 0.01694656372070433,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0.008731767009742167,
+          "liftMode": 0
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "charge-waterfront",
+          "kind": "charge",
+          "target": "charger",
+          "position": null,
+          "speed": 4,
+          "guidance": [
+            "Land within the station acceptance area and remain grounded until the charge goal completes."
+          ],
+          "reviewAfter": false
+        },
+        "completedGoalIds": [
+          "engine:departure",
+          "departure-climb",
+          "glasshouse-street-approach",
+          "glasshouse-overhead",
+          "activate-glasshouse",
+          "activate-glasshouse:review",
+          "glasshouse-departure-height-revised",
+          "observatory-overhead-revised",
+          "activate-observatory",
+          "activate-observatory:review",
+          "observatory-departure-height-revised",
+          "observatory-to-charger-overhead"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          },
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "startedAt": 12.958333333333238,
+            "completedAt": 17.341666666666324,
+            "startEnergy": 97.12614373348987,
+            "endEnergy": 94.69297060590048,
+            "startPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ],
+            "endPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ]
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "startedAt": 17.341666666666324,
+            "completedAt": 31.391666666665525,
+            "startEnergy": 94.69297060590048,
+            "endEnergy": 87.08399259487096,
+            "startPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ],
+            "endPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ]
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "startedAt": 31.391666666665525,
+            "completedAt": 42.18333333333158,
+            "startEnergy": 87.08399259487096,
+            "endEnergy": 81.11917805680001,
+            "startPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ],
+            "endPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ]
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "startedAt": 42.18333333333158,
+            "completedAt": 48.05833333333125,
+            "startEnergy": 81.11917805680001,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ],
+            "endPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "activate-glasshouse:review",
+            "kind": "wait_review",
+            "startedAt": 48.06666666666458,
+            "completedAt": 85.65000000001423,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "glasshouse-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 85.65000000001423,
+            "completedAt": 90.71666666668493,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 76.53268664384855,
+            "startPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ]
+          },
+          {
+            "id": "observatory-overhead-revised",
+            "kind": "fly",
+            "startedAt": 90.71666666668493,
+            "completedAt": 114.24166666670365,
+            "startEnergy": 76.53268664384855,
+            "endEnergy": 63.73572363020228,
+            "startPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ],
+            "endPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ]
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "startedAt": 114.24166666670365,
+            "completedAt": 123.65000000004447,
+            "startEnergy": 63.73572363020228,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "activate-observatory:review",
+            "kind": "wait_review",
+            "startedAt": 123.65833333337781,
+            "completedAt": 151.36666666669333,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 151.36666666669333,
+            "completedAt": 156.141666666689,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 57.32208629064186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ]
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "startedAt": 156.141666666689,
+            "completedAt": 188.34999999999303,
+            "startEnergy": 57.32208629064186,
+            "endEnergy": 39.77867762453926,
+            "startPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ],
+            "endPosition": [
+              -173.61770629882812,
+              53.998748779296875,
+              46.59209060668945
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 65.30833333333138,
+        "flightThrottle": 0.510013186188178,
+        "nozzleThrustLevels": [
+          0.3249779727300863,
+          0.324977008333894,
+          0.6950493640424622,
+          0.6950483996462699
+        ],
+        "bodyOrientationQuaternion": [
+          0.03780292719602585,
+          0.9210174679756165,
+          -0.09247951954603195,
+          0.37649086117744446
+        ],
+        "bodyAngularVelocityWorld": [
+          -0.0583498477935791,
+          -8.184291800716892e-05,
+          -0.057270683348178864
+        ],
+        "bodyUpWorld": [
+          0.13926970048662435,
+          0.9800369543198941,
+          -0.14188559263365574
+        ],
+        "bodyHeadingYawRadians": 2.365492834121329,
+        "targetDwellSeconds": 0,
+        "lastLandingImpact": 0.270978718996048,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 0,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            -175,
+            0,
+            48
+          ],
+          "distance": 1.91,
+          "heightAboveSurface": 53.4
+        },
+        "lastAppliedManeuver": "hold",
+        "runId": "actuator-regression-fixture",
+        "seq": 2411,
+        "simTime": 188.36666666665968,
+        "wallElapsedSeconds": 250.19166666660345,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350265218,
+        "position": [
+          -173.6626739501953,
+          53.998741149902344,
+          46.63790512084961
+        ],
+        "velocity": [
+          -2.6630818843841553,
+          0.0007847485831007361,
+          2.7131600379943848
+        ],
+        "yaw": 2.365450017121063,
+        "grounded": false,
+        "energy": 39.76932837131503,
+        "speed": 3.8017420368437356,
+        "headingError": -8.017602125010015e-05,
+        "distance": 1.9088591942031574,
+        "heightAboveTarget": 53.39874114990234,
+        "cruiseAltitude": 0.64,
+        "target": "charger",
+        "targetPosition": [
+          -175,
+          0,
+          48
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "charge",
+        "completed": [
+          "relay-1",
+          "relay-2"
+        ],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 6.766666666666793,
+        "planVersion": 3,
+        "legIndex": 2,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              54,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above the Observatory roof before traveling toward the charger."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              54,
+              48
+            ],
+            "speed": 5,
+            "guidance": [
+              "Stay at this altitude across the diagonal to the charger; it clears the buildings along the route. Arrive over the station before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charge-waterfront",
+            "kind": "charge",
+            "target": "charger",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Land within the station acceptance area and remain grounded until the charge goal completes."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              58,
+              48
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above nearby rooftops before crossing toward Highline."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-to-highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              58,
+              -128
+            ],
+            "speed": 5,
+            "guidance": [
+              "Maintain this altitude across the diagonal; it clears the tall buildings near the route and the Highline roof. Arrive directly above the relay before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Center over the relay and make a controlled landing; remain grounded and stable through activation."
+            ],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb clear of the Highline rooftop before moving east."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Move east to the open x=105 street before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Descend over the open street and establish wheel contact before the ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Follow the x=105 street corridor north to z=150; remain on the open roadway."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along the open z=150 roadway to the depot and settle within its acceptance area."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": -1,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": -2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 1,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": -2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 1,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": -3,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 1,
+          "liftMode": -1
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "charge-waterfront",
+          "kind": "charge",
+          "target": "charger",
+          "position": null,
+          "speed": 4,
+          "guidance": [
+            "Land within the station acceptance area and remain grounded until the charge goal completes."
+          ],
+          "reviewAfter": false
+        },
+        "completedGoalIds": [
+          "engine:departure",
+          "departure-climb",
+          "glasshouse-street-approach",
+          "glasshouse-overhead",
+          "activate-glasshouse",
+          "activate-glasshouse:review",
+          "glasshouse-departure-height-revised",
+          "observatory-overhead-revised",
+          "activate-observatory",
+          "activate-observatory:review",
+          "observatory-departure-height-revised",
+          "observatory-to-charger-overhead"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          },
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "startedAt": 12.958333333333238,
+            "completedAt": 17.341666666666324,
+            "startEnergy": 97.12614373348987,
+            "endEnergy": 94.69297060590048,
+            "startPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ],
+            "endPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ]
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "startedAt": 17.341666666666324,
+            "completedAt": 31.391666666665525,
+            "startEnergy": 94.69297060590048,
+            "endEnergy": 87.08399259487096,
+            "startPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ],
+            "endPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ]
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "startedAt": 31.391666666665525,
+            "completedAt": 42.18333333333158,
+            "startEnergy": 87.08399259487096,
+            "endEnergy": 81.11917805680001,
+            "startPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ],
+            "endPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ]
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "startedAt": 42.18333333333158,
+            "completedAt": 48.05833333333125,
+            "startEnergy": 81.11917805680001,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ],
+            "endPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "activate-glasshouse:review",
+            "kind": "wait_review",
+            "startedAt": 48.06666666666458,
+            "completedAt": 85.65000000001423,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "glasshouse-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 85.65000000001423,
+            "completedAt": 90.71666666668493,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 76.53268664384855,
+            "startPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ]
+          },
+          {
+            "id": "observatory-overhead-revised",
+            "kind": "fly",
+            "startedAt": 90.71666666668493,
+            "completedAt": 114.24166666670365,
+            "startEnergy": 76.53268664384855,
+            "endEnergy": 63.73572363020228,
+            "startPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ],
+            "endPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ]
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "startedAt": 114.24166666670365,
+            "completedAt": 123.65000000004447,
+            "startEnergy": 63.73572363020228,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "activate-observatory:review",
+            "kind": "wait_review",
+            "startedAt": 123.65833333337781,
+            "completedAt": 151.36666666669333,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 151.36666666669333,
+            "completedAt": 156.141666666689,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 57.32208629064186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ]
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "startedAt": 156.141666666689,
+            "completedAt": 188.34999999999303,
+            "startEnergy": 57.32208629064186,
+            "endEnergy": 39.77867762453926,
+            "startPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ],
+            "endPosition": [
+              -173.61770629882812,
+              53.998748779296875,
+              46.59209060668945
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 65.30833333333138,
+        "flightThrottle": 0,
+        "nozzleThrustLevels": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bodyOrientationQuaternion": [
+          6.744914571754634e-05,
+          -0.45758476853370667,
+          3.468257636995986e-05,
+          0.889165997505188
+        ],
+        "bodyAngularVelocityWorld": [
+          -5.0014838052447885e-05,
+          1.0526802185495399e-07,
+          -6.968148954911157e-05
+        ],
+        "bodyUpWorld": [
+          -0.00012340453869000984,
+          0.9999999884954632,
+          8.820653650482837e-05
+        ],
+        "bodyHeadingYawRadians": -0.9505540129868497,
+        "targetDwellSeconds": 0,
+        "lastLandingImpact": 0.2783520519733429,
+        "chargingEligible": true,
+        "chargingStopsCompleted": 0,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            -175,
+            0,
+            48
+          ],
+          "distance": 0,
+          "heightAboveSurface": -0.02
+        },
+        "lastAppliedManeuver": "descend",
+        "runId": "actuator-regression-fixture",
+        "seq": 2607,
+        "simTime": 208.7249999999745,
+        "wallElapsedSeconds": 270.54999999991827,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350285576,
+        "position": [
+          -175.00096130371094,
+          0.579663097858429,
+          48.00068664550781
+        ],
+        "velocity": [
+          4.075611286680214e-05,
+          -0.022499246522784233,
+          -2.8954593290109187e-05
+        ],
+        "yaw": -0.9505540130313379,
+        "grounded": true,
+        "energy": 35.827275811130974,
+        "speed": 4.99942917602315e-05,
+        "headingError": 7.172219262829849e-06,
+        "distance": 0.0011813496002713569,
+        "heightAboveTarget": -0.020336902141571023,
+        "cruiseAltitude": 0.64,
+        "target": "charger",
+        "targetPosition": [
+          -175,
+          0,
+          48
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "charge",
+        "completed": [
+          "relay-1",
+          "relay-2"
+        ],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 7.066666666666808,
+        "planVersion": 3,
+        "legIndex": 2,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              54,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above the Observatory roof before traveling toward the charger."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              54,
+              48
+            ],
+            "speed": 5,
+            "guidance": [
+              "Stay at this altitude across the diagonal to the charger; it clears the buildings along the route. Arrive over the station before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charge-waterfront",
+            "kind": "charge",
+            "target": "charger",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Land within the station acceptance area and remain grounded until the charge goal completes."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              58,
+              48
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above nearby rooftops before crossing toward Highline."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-to-highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              58,
+              -128
+            ],
+            "speed": 5,
+            "guidance": [
+              "Maintain this altitude across the diagonal; it clears the tall buildings near the route and the Highline roof. Arrive directly above the relay before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Center over the relay and make a controlled landing; remain grounded and stable through activation."
+            ],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb clear of the Highline rooftop before moving east."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Move east to the open x=105 street before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Descend over the open street and establish wheel contact before the ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Follow the x=105 street corridor north to z=150; remain on the open roadway."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along the open z=150 roadway to the depot and settle within its acceptance area."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": null,
+          "wheelThrottle": 1,
+          "horizontalBrake": false,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": 0.07240428256988526,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": 0.04826952171325685,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": -0.00045322117782337166,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": 0.04826952171325685,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": -0.00045322117782337166,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": 0.01728636682033537,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": -0.00045322117782337166,
+          "liftMode": 0
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "east-street-ground-landing",
+          "kind": "drive",
+          "target": null,
+          "position": [
+            105,
+            0.6,
+            -128
+          ],
+          "speed": 4,
+          "guidance": [
+            "Descend over the open street and establish wheel contact before the ground return."
+          ],
+          "reviewAfter": false
+        },
+        "completedGoalIds": [
+          "engine:departure",
+          "departure-climb",
+          "glasshouse-street-approach",
+          "glasshouse-overhead",
+          "activate-glasshouse",
+          "activate-glasshouse:review",
+          "glasshouse-departure-height-revised",
+          "observatory-overhead-revised",
+          "activate-observatory",
+          "activate-observatory:review",
+          "observatory-departure-height-revised",
+          "observatory-to-charger-overhead",
+          "charge-waterfront",
+          "charger-departure-height",
+          "charger-to-highline-overhead",
+          "activate-highline",
+          "activate-highline:review",
+          "highline-departure-height-revised",
+          "east-street-overhead-revised"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          },
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "startedAt": 12.958333333333238,
+            "completedAt": 17.341666666666324,
+            "startEnergy": 97.12614373348987,
+            "endEnergy": 94.69297060590048,
+            "startPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ],
+            "endPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ]
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "startedAt": 17.341666666666324,
+            "completedAt": 31.391666666665525,
+            "startEnergy": 94.69297060590048,
+            "endEnergy": 87.08399259487096,
+            "startPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ],
+            "endPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ]
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "startedAt": 31.391666666665525,
+            "completedAt": 42.18333333333158,
+            "startEnergy": 87.08399259487096,
+            "endEnergy": 81.11917805680001,
+            "startPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ],
+            "endPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ]
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "startedAt": 42.18333333333158,
+            "completedAt": 48.05833333333125,
+            "startEnergy": 81.11917805680001,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ],
+            "endPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "activate-glasshouse:review",
+            "kind": "wait_review",
+            "startedAt": 48.06666666666458,
+            "completedAt": 85.65000000001423,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "glasshouse-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 85.65000000001423,
+            "completedAt": 90.71666666668493,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 76.53268664384855,
+            "startPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ]
+          },
+          {
+            "id": "observatory-overhead-revised",
+            "kind": "fly",
+            "startedAt": 90.71666666668493,
+            "completedAt": 114.24166666670365,
+            "startEnergy": 76.53268664384855,
+            "endEnergy": 63.73572363020228,
+            "startPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ],
+            "endPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ]
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "startedAt": 114.24166666670365,
+            "completedAt": 123.65000000004447,
+            "startEnergy": 63.73572363020228,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "activate-observatory:review",
+            "kind": "wait_review",
+            "startedAt": 123.65833333337781,
+            "completedAt": 151.36666666669333,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 151.36666666669333,
+            "completedAt": 156.141666666689,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 57.32208629064186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ]
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "startedAt": 156.141666666689,
+            "completedAt": 188.34999999999303,
+            "startEnergy": 57.32208629064186,
+            "endEnergy": 39.77867762453926,
+            "startPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ],
+            "endPosition": [
+              -173.61770629882812,
+              53.998748779296875,
+              46.59209060668945
+            ]
+          },
+          {
+            "id": "charge-waterfront",
+            "kind": "charge",
+            "startedAt": 188.34999999999303,
+            "completedAt": 213.16666666663713,
+            "startEnergy": 39.77867762453926,
+            "endEnergy": 98.01060914446249,
+            "startPosition": [
+              -173.61770629882812,
+              53.998748779296875,
+              46.59209060668945
+            ],
+            "endPosition": [
+              -175.00096130371094,
+              0.5800630450248718,
+              48.00068664550781
+            ]
+          },
+          {
+            "id": "charger-departure-height",
+            "kind": "fly",
+            "startedAt": 213.16666666663713,
+            "completedAt": 234.11666666661807,
+            "startEnergy": 98.01060914446249,
+            "endEnergy": 88.5719992798898,
+            "startPosition": [
+              -175.00096130371094,
+              0.5800630450248718,
+              48.00068664550781
+            ],
+            "endPosition": [
+              -175.00096130371094,
+              56.00430679321289,
+              48.00068664550781
+            ]
+          },
+          {
+            "id": "charger-to-highline-overhead",
+            "kind": "fly",
+            "startedAt": 234.11666666661807,
+            "completedAt": 297.3833333332272,
+            "startEnergy": 88.5719992798898,
+            "endEnergy": 53.83789150688231,
+            "startPosition": [
+              -175.00096130371094,
+              56.00430679321289,
+              48.00068664550781
+            ],
+            "endPosition": [
+              68.39116668701172,
+              57.99979019165039,
+              -126.84381103515625
+            ]
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "startedAt": 297.3833333332272,
+            "completedAt": 308.07499999988414,
+            "startEnergy": 53.83789150688231,
+            "endEnergy": 49.379371846658984,
+            "startPosition": [
+              68.39116668701172,
+              57.99979019165039,
+              -126.84381103515625
+            ],
+            "endPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ]
+          },
+          {
+            "id": "activate-highline:review",
+            "kind": "wait_review",
+            "startedAt": 308.08333333321747,
+            "completedAt": 308.1916666665507,
+            "startEnergy": 49.379371846658984,
+            "endEnergy": 49.379371846658984,
+            "startPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ],
+            "endPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ]
+          },
+          {
+            "id": "highline-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 308.1916666665507,
+            "completedAt": 310.2666666665488,
+            "startEnergy": 49.379371846658984,
+            "endEnergy": 48.245807129541305,
+            "startPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ],
+            "endPosition": [
+              69.98421478271484,
+              46.02299499511719,
+              -127.97416687011719
+            ]
+          },
+          {
+            "id": "east-street-overhead-revised",
+            "kind": "fly",
+            "startedAt": 310.2666666665488,
+            "completedAt": 322.15833333320467,
+            "startEnergy": 48.245807129541305,
+            "endEnergy": 41.90235125308432,
+            "startPosition": [
+              69.98421478271484,
+              46.02299499511719,
+              -127.97416687011719
+            ],
+            "endPosition": [
+              103.01282501220703,
+              47.99911880493164,
+              -128.05934143066406
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 65.42499999999814,
+        "flightThrottle": 0.5068826536357789,
+        "nozzleThrustLevels": [
+          0.39085364613121654,
+          0.3908483626217692,
+          0.6229169446497886,
+          0.6229116611403412
+        ],
+        "bodyOrientationQuaternion": [
+          -0.05755434185266495,
+          0.7150387167930603,
+          -0.05928394943475723,
+          -0.6941848397254944
+        ],
+        "bodyAngularVelocityWorld": [
+          0.0008419078658334911,
+          -0.00020395293540786952,
+          -0.028487669304013252
+        ],
+        "bodyUpWorld": [
+          -0.16461520336171986,
+          0.9863458221466475,
+          -0.004873935111509908
+        ],
+        "bodyHeadingYawRadians": -1.6003904063692354,
+        "targetDwellSeconds": 0,
+        "lastLandingImpact": 0.28235486149787903,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 1,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            105,
+            0,
+            -128
+          ],
+          "distance": 1.73,
+          "heightAboveSurface": 47.4
+        },
+        "lastAppliedManeuver": "hold",
+        "runId": "actuator-regression-fixture",
+        "seq": 3701,
+        "simTime": 322.2416666665379,
+        "wallElapsedSeconds": 384.0666666664817,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350399087,
+        "position": [
+          103.26873016357422,
+          47.99909591674805,
+          -128.05178833007812
+        ],
+        "velocity": [
+          2.842562198638916,
+          0.0004676916287280619,
+          0.08387408405542374
+        ],
+        "yaw": -1.6004851493227337,
+        "grounded": false,
+        "energy": 41.85590414724202,
+        "speed": 2.8437993450852055,
+        "headingError": -0.00021575401394868798,
+        "distance": 1.7320442481790215,
+        "heightAboveTarget": 47.399095916748045,
+        "cruiseAltitude": 0.6,
+        "target": "depot",
+        "targetPosition": [
+          35,
+          0,
+          150
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "drive",
+        "completed": [
+          "relay-1",
+          "relay-2",
+          "relay-3"
+        ],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 10.716666666666699,
+        "planVersion": 4,
+        "legIndex": 8,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              54,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above the Observatory roof before traveling toward the charger."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              54,
+              48
+            ],
+            "speed": 5,
+            "guidance": [
+              "Stay at this altitude across the diagonal to the charger; it clears the buildings along the route. Arrive over the station before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charge-waterfront",
+            "kind": "charge",
+            "target": "charger",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Land within the station acceptance area and remain grounded until the charge goal completes."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              58,
+              48
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above nearby rooftops before crossing toward Highline."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-to-highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              58,
+              -128
+            ],
+            "speed": 5,
+            "guidance": [
+              "Maintain this altitude across the diagonal; it clears the tall buildings near the route and the Highline roof. Arrive directly above the relay before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Center over the relay and make a controlled landing; remain grounded and stable through activation."
+            ],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb clear of the Highline rooftop before moving east."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Move east to the open x=105 street before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Descend over the open street and establish wheel contact before the ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Follow the x=105 street corridor north to z=150; remain on the open roadway."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along the open z=150 roadway to the depot and settle within its acceptance area."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": -1,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": -2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 0.9516315362024321,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": -2,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 0.9516315362024321,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": -3,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": 0.9516315362024321,
+          "liftMode": -1
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "east-street-ground-return",
+          "kind": "drive",
+          "target": null,
+          "position": [
+            105,
+            0.6,
+            150
+          ],
+          "speed": 8,
+          "guidance": [
+            "Follow the x=105 street corridor north to z=150; remain on the open roadway."
+          ],
+          "reviewAfter": false
+        },
+        "completedGoalIds": [
+          "engine:departure",
+          "departure-climb",
+          "glasshouse-street-approach",
+          "glasshouse-overhead",
+          "activate-glasshouse",
+          "activate-glasshouse:review",
+          "glasshouse-departure-height-revised",
+          "observatory-overhead-revised",
+          "activate-observatory",
+          "activate-observatory:review",
+          "observatory-departure-height-revised",
+          "observatory-to-charger-overhead",
+          "charge-waterfront",
+          "charger-departure-height",
+          "charger-to-highline-overhead",
+          "activate-highline",
+          "activate-highline:review",
+          "highline-departure-height-revised",
+          "east-street-overhead-revised",
+          "east-street-ground-landing"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          },
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "startedAt": 12.958333333333238,
+            "completedAt": 17.341666666666324,
+            "startEnergy": 97.12614373348987,
+            "endEnergy": 94.69297060590048,
+            "startPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ],
+            "endPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ]
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "startedAt": 17.341666666666324,
+            "completedAt": 31.391666666665525,
+            "startEnergy": 94.69297060590048,
+            "endEnergy": 87.08399259487096,
+            "startPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ],
+            "endPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ]
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "startedAt": 31.391666666665525,
+            "completedAt": 42.18333333333158,
+            "startEnergy": 87.08399259487096,
+            "endEnergy": 81.11917805680001,
+            "startPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ],
+            "endPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ]
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "startedAt": 42.18333333333158,
+            "completedAt": 48.05833333333125,
+            "startEnergy": 81.11917805680001,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ],
+            "endPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "activate-glasshouse:review",
+            "kind": "wait_review",
+            "startedAt": 48.06666666666458,
+            "completedAt": 85.65000000001423,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "glasshouse-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 85.65000000001423,
+            "completedAt": 90.71666666668493,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 76.53268664384855,
+            "startPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ]
+          },
+          {
+            "id": "observatory-overhead-revised",
+            "kind": "fly",
+            "startedAt": 90.71666666668493,
+            "completedAt": 114.24166666670365,
+            "startEnergy": 76.53268664384855,
+            "endEnergy": 63.73572363020228,
+            "startPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ],
+            "endPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ]
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "startedAt": 114.24166666670365,
+            "completedAt": 123.65000000004447,
+            "startEnergy": 63.73572363020228,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "activate-observatory:review",
+            "kind": "wait_review",
+            "startedAt": 123.65833333337781,
+            "completedAt": 151.36666666669333,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 151.36666666669333,
+            "completedAt": 156.141666666689,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 57.32208629064186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ]
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "startedAt": 156.141666666689,
+            "completedAt": 188.34999999999303,
+            "startEnergy": 57.32208629064186,
+            "endEnergy": 39.77867762453926,
+            "startPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ],
+            "endPosition": [
+              -173.61770629882812,
+              53.998748779296875,
+              46.59209060668945
+            ]
+          },
+          {
+            "id": "charge-waterfront",
+            "kind": "charge",
+            "startedAt": 188.34999999999303,
+            "completedAt": 213.16666666663713,
+            "startEnergy": 39.77867762453926,
+            "endEnergy": 98.01060914446249,
+            "startPosition": [
+              -173.61770629882812,
+              53.998748779296875,
+              46.59209060668945
+            ],
+            "endPosition": [
+              -175.00096130371094,
+              0.5800630450248718,
+              48.00068664550781
+            ]
+          },
+          {
+            "id": "charger-departure-height",
+            "kind": "fly",
+            "startedAt": 213.16666666663713,
+            "completedAt": 234.11666666661807,
+            "startEnergy": 98.01060914446249,
+            "endEnergy": 88.5719992798898,
+            "startPosition": [
+              -175.00096130371094,
+              0.5800630450248718,
+              48.00068664550781
+            ],
+            "endPosition": [
+              -175.00096130371094,
+              56.00430679321289,
+              48.00068664550781
+            ]
+          },
+          {
+            "id": "charger-to-highline-overhead",
+            "kind": "fly",
+            "startedAt": 234.11666666661807,
+            "completedAt": 297.3833333332272,
+            "startEnergy": 88.5719992798898,
+            "endEnergy": 53.83789150688231,
+            "startPosition": [
+              -175.00096130371094,
+              56.00430679321289,
+              48.00068664550781
+            ],
+            "endPosition": [
+              68.39116668701172,
+              57.99979019165039,
+              -126.84381103515625
+            ]
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "startedAt": 297.3833333332272,
+            "completedAt": 308.07499999988414,
+            "startEnergy": 53.83789150688231,
+            "endEnergy": 49.379371846658984,
+            "startPosition": [
+              68.39116668701172,
+              57.99979019165039,
+              -126.84381103515625
+            ],
+            "endPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ]
+          },
+          {
+            "id": "activate-highline:review",
+            "kind": "wait_review",
+            "startedAt": 308.08333333321747,
+            "completedAt": 308.1916666665507,
+            "startEnergy": 49.379371846658984,
+            "endEnergy": 49.379371846658984,
+            "startPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ],
+            "endPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ]
+          },
+          {
+            "id": "highline-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 308.1916666665507,
+            "completedAt": 310.2666666665488,
+            "startEnergy": 49.379371846658984,
+            "endEnergy": 48.245807129541305,
+            "startPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ],
+            "endPosition": [
+              69.98421478271484,
+              46.02299499511719,
+              -127.97416687011719
+            ]
+          },
+          {
+            "id": "east-street-overhead-revised",
+            "kind": "fly",
+            "startedAt": 310.2666666665488,
+            "completedAt": 322.15833333320467,
+            "startEnergy": 48.245807129541305,
+            "endEnergy": 41.90235125308432,
+            "startPosition": [
+              69.98421478271484,
+              46.02299499511719,
+              -127.97416687011719
+            ],
+            "endPosition": [
+              103.01282501220703,
+              47.99911880493164,
+              -128.05934143066406
+            ]
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "startedAt": 322.15833333320467,
+            "completedAt": 340.07499999985504,
+            "startEnergy": 41.90235125308432,
+            "endEnergy": 32.144850849990725,
+            "startPosition": [
+              103.01282501220703,
+              47.99911880493164,
+              -128.05934143066406
+            ],
+            "endPosition": [
+              105.0007553100586,
+              0.6339441537857056,
+              -128.00216674804688
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 65.42499999999814,
+        "flightThrottle": 0,
+        "nozzleThrustLevels": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bodyOrientationQuaternion": [
+          -3.5790405945590464e-06,
+          -0.9859699606895447,
+          2.1832915081176907e-05,
+          -0.1669231802225113
+        ],
+        "bodyAngularVelocityWorld": [
+          -0.0009346988517791033,
+          -4.6085954608088286e-08,
+          -0.00033051377977244556
+        ],
+        "bodyUpWorld": [
+          1.434649226640349e-05,
+          0.9999999990210285,
+          -4.1858347172273797e-05
+        ],
+        "bodyHeadingYawRadians": 2.8061762349719803,
+        "targetDwellSeconds": 0,
+        "lastLandingImpact": 0.2768513560295105,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 1,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            105,
+            0,
+            150
+          ],
+          "distance": 278,
+          "heightAboveSurface": 0
+        },
+        "lastAppliedManeuver": "hold",
+        "runId": "actuator-regression-fixture",
+        "seq": 3873,
+        "simTime": 340.1666666665216,
+        "wallElapsedSeconds": 401.9916666664654,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350417029,
+        "position": [
+          105.0007553100586,
+          0.6024158596992493,
+          -128.00216674804688
+        ],
+        "velocity": [
+          0.0001885147503344342,
+          -0.3428296148777008,
+          -0.0005325824022293091
+        ],
+        "yaw": 2.8061762349175834,
+        "grounded": true,
+        "energy": 32.144850849990725,
+        "speed": 0.0005649617918567553,
+        "headingError": 0.33541370175072904,
+        "distance": 278.00216674907296,
+        "heightAboveTarget": 0.0024158596992492898,
+        "cruiseAltitude": 0.6,
+        "target": "depot",
+        "targetPosition": [
+          35,
+          0,
+          150
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "drive",
+        "completed": [
+          "relay-1",
+          "relay-2",
+          "relay-3"
+        ],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 11.091666666666677,
+        "planVersion": 4,
+        "legIndex": 9,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              54,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above the Observatory roof before traveling toward the charger."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              54,
+              48
+            ],
+            "speed": 5,
+            "guidance": [
+              "Stay at this altitude across the diagonal to the charger; it clears the buildings along the route. Arrive over the station before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charge-waterfront",
+            "kind": "charge",
+            "target": "charger",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Land within the station acceptance area and remain grounded until the charge goal completes."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              58,
+              48
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above nearby rooftops before crossing toward Highline."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-to-highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              58,
+              -128
+            ],
+            "speed": 5,
+            "guidance": [
+              "Maintain this altitude across the diagonal; it clears the tall buildings near the route and the Highline roof. Arrive directly above the relay before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Center over the relay and make a controlled landing; remain grounded and stable through activation."
+            ],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb clear of the Highline rooftop before moving east."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Move east to the open x=105 street before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Descend over the open street and establish wheel contact before the ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Follow the x=105 street corridor north to z=150; remain on the open roadway."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along the open z=150 roadway to the depot and settle within its acceptance area."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": null,
+          "wheelThrottle": 1,
+          "horizontalBrake": false,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": -0.0028990316390991476,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": -0.001932687759399432,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": -1,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": -0.001932687759399432,
+          "wheelThrottle": 0,
+          "horizontalBrake": false,
+          "pitchTilt": -1,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": -0.0020534807443618962,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": -0.7714868340299597,
+          "liftMode": 0
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    },
+    {
+      "observation": {
+        "goal": {
+          "id": "return-depot",
+          "kind": "depot",
+          "target": "depot",
+          "position": null,
+          "speed": 8,
+          "guidance": [
+            "Return west along the open z=150 roadway to the depot and settle within its acceptance area."
+          ],
+          "reviewAfter": false
+        },
+        "completedGoalIds": [
+          "engine:departure",
+          "departure-climb",
+          "glasshouse-street-approach",
+          "glasshouse-overhead",
+          "activate-glasshouse",
+          "activate-glasshouse:review",
+          "glasshouse-departure-height-revised",
+          "observatory-overhead-revised",
+          "activate-observatory",
+          "activate-observatory:review",
+          "observatory-departure-height-revised",
+          "observatory-to-charger-overhead",
+          "charge-waterfront",
+          "charger-departure-height",
+          "charger-to-highline-overhead",
+          "activate-highline",
+          "activate-highline:review",
+          "highline-departure-height-revised",
+          "east-street-overhead-revised",
+          "east-street-ground-landing",
+          "east-street-ground-return"
+        ],
+        "goalLedger": [
+          {
+            "id": "engine:departure",
+            "kind": "departure",
+            "startedAt": 0,
+            "completedAt": 12.958333333333238,
+            "startEnergy": 100,
+            "endEnergy": 97.12614373348987,
+            "startPosition": [
+              35,
+              0.580071747303009,
+              150
+            ],
+            "endPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ]
+          },
+          {
+            "id": "departure-climb",
+            "kind": "fly",
+            "startedAt": 12.958333333333238,
+            "completedAt": 17.341666666666324,
+            "startEnergy": 97.12614373348987,
+            "endEnergy": 94.69297060590048,
+            "startPosition": [
+              35,
+              0.5800629258155823,
+              120.99539947509766
+            ],
+            "endPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ]
+          },
+          {
+            "id": "glasshouse-street-approach",
+            "kind": "fly",
+            "startedAt": 17.341666666666324,
+            "completedAt": 31.391666666665525,
+            "startEnergy": 94.69297060590048,
+            "endEnergy": 87.08399259487096,
+            "startPosition": [
+              35,
+              20.62345314025879,
+              120.42313385009766
+            ],
+            "endPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ]
+          },
+          {
+            "id": "glasshouse-overhead",
+            "kind": "fly",
+            "startedAt": 31.391666666665525,
+            "completedAt": 42.18333333333158,
+            "startEnergy": 87.08399259487096,
+            "endEnergy": 81.11917805680001,
+            "startPosition": [
+              35,
+              21.99925422668457,
+              13.997858047485352
+            ],
+            "endPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ]
+          },
+          {
+            "id": "activate-glasshouse",
+            "kind": "relay",
+            "startedAt": 42.18333333333158,
+            "completedAt": 48.05833333333125,
+            "startEnergy": 81.11917805680001,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              1.9782859086990356,
+              21.999900817871094,
+              11.763787269592285
+            ],
+            "endPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "activate-glasshouse:review",
+            "kind": "wait_review",
+            "startedAt": 48.06666666666458,
+            "completedAt": 85.65000000001423,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 79.28200877397086,
+            "startPosition": [
+              -0.027595505118370056,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ]
+          },
+          {
+            "id": "glasshouse-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 85.65000000001423,
+            "completedAt": 90.71666666668493,
+            "startEnergy": 79.28200877397086,
+            "endEnergy": 76.53268664384855,
+            "startPosition": [
+              -0.027595356106758118,
+              18.580062866210938,
+              11.994758605957031
+            ],
+            "endPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ]
+          },
+          {
+            "id": "observatory-overhead-revised",
+            "kind": "fly",
+            "startedAt": 90.71666666668493,
+            "completedAt": 114.24166666670365,
+            "startEnergy": 76.53268664384855,
+            "endEnergy": 63.73572363020228,
+            "startPosition": [
+              -0.026947621256113052,
+              42.02263641357422,
+              11.994749069213867
+            ],
+            "endPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ]
+          },
+          {
+            "id": "activate-observatory",
+            "kind": "relay",
+            "startedAt": 114.24166666670365,
+            "completedAt": 123.65000000004447,
+            "startEnergy": 63.73572363020228,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -68.57936096191406,
+              43.999671936035156,
+              -56.6044807434082
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "activate-observatory:review",
+            "kind": "wait_review",
+            "startedAt": 123.65833333337781,
+            "completedAt": 151.36666666669333,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 59.97627888270186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ]
+          },
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 151.36666666669333,
+            "completedAt": 156.141666666689,
+            "startEnergy": 59.97627888270186,
+            "endEnergy": 57.32208629064186,
+            "startPosition": [
+              -69.9516372680664,
+              29.580062866210938,
+              -58.001434326171875
+            ],
+            "endPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ]
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "startedAt": 156.141666666689,
+            "completedAt": 188.34999999999303,
+            "startEnergy": 57.32208629064186,
+            "endEnergy": 39.77867762453926,
+            "startPosition": [
+              -69.95167541503906,
+              52.0211067199707,
+              -58.00143051147461
+            ],
+            "endPosition": [
+              -173.61770629882812,
+              53.998748779296875,
+              46.59209060668945
+            ]
+          },
+          {
+            "id": "charge-waterfront",
+            "kind": "charge",
+            "startedAt": 188.34999999999303,
+            "completedAt": 213.16666666663713,
+            "startEnergy": 39.77867762453926,
+            "endEnergy": 98.01060914446249,
+            "startPosition": [
+              -173.61770629882812,
+              53.998748779296875,
+              46.59209060668945
+            ],
+            "endPosition": [
+              -175.00096130371094,
+              0.5800630450248718,
+              48.00068664550781
+            ]
+          },
+          {
+            "id": "charger-departure-height",
+            "kind": "fly",
+            "startedAt": 213.16666666663713,
+            "completedAt": 234.11666666661807,
+            "startEnergy": 98.01060914446249,
+            "endEnergy": 88.5719992798898,
+            "startPosition": [
+              -175.00096130371094,
+              0.5800630450248718,
+              48.00068664550781
+            ],
+            "endPosition": [
+              -175.00096130371094,
+              56.00430679321289,
+              48.00068664550781
+            ]
+          },
+          {
+            "id": "charger-to-highline-overhead",
+            "kind": "fly",
+            "startedAt": 234.11666666661807,
+            "completedAt": 297.3833333332272,
+            "startEnergy": 88.5719992798898,
+            "endEnergy": 53.83789150688231,
+            "startPosition": [
+              -175.00096130371094,
+              56.00430679321289,
+              48.00068664550781
+            ],
+            "endPosition": [
+              68.39116668701172,
+              57.99979019165039,
+              -126.84381103515625
+            ]
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "startedAt": 297.3833333332272,
+            "completedAt": 308.07499999988414,
+            "startEnergy": 53.83789150688231,
+            "endEnergy": 49.379371846658984,
+            "startPosition": [
+              68.39116668701172,
+              57.99979019165039,
+              -126.84381103515625
+            ],
+            "endPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ]
+          },
+          {
+            "id": "activate-highline:review",
+            "kind": "wait_review",
+            "startedAt": 308.08333333321747,
+            "completedAt": 308.1916666665507,
+            "startEnergy": 49.379371846658984,
+            "endEnergy": 49.379371846658984,
+            "startPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ],
+            "endPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ]
+          },
+          {
+            "id": "highline-departure-height-revised",
+            "kind": "fly",
+            "startedAt": 308.1916666665507,
+            "completedAt": 310.2666666665488,
+            "startEnergy": 49.379371846658984,
+            "endEnergy": 48.245807129541305,
+            "startPosition": [
+              69.98421478271484,
+              39.580055236816406,
+              -127.97416687011719
+            ],
+            "endPosition": [
+              69.98421478271484,
+              46.02299499511719,
+              -127.97416687011719
+            ]
+          },
+          {
+            "id": "east-street-overhead-revised",
+            "kind": "fly",
+            "startedAt": 310.2666666665488,
+            "completedAt": 322.15833333320467,
+            "startEnergy": 48.245807129541305,
+            "endEnergy": 41.90235125308432,
+            "startPosition": [
+              69.98421478271484,
+              46.02299499511719,
+              -127.97416687011719
+            ],
+            "endPosition": [
+              103.01282501220703,
+              47.99911880493164,
+              -128.05934143066406
+            ]
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "startedAt": 322.15833333320467,
+            "completedAt": 340.07499999985504,
+            "startEnergy": 41.90235125308432,
+            "endEnergy": 32.144850849990725,
+            "startPosition": [
+              103.01282501220703,
+              47.99911880493164,
+              -128.05934143066406
+            ],
+            "endPosition": [
+              105.0007553100586,
+              0.6339441537857056,
+              -128.00216674804688
+            ]
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "startedAt": 340.07499999985504,
+            "completedAt": 378.80833333315314,
+            "startEnergy": 32.144850849990725,
+            "endEnergy": 32.144850849990725,
+            "startPosition": [
+              105.0007553100586,
+              0.6339441537857056,
+              -128.00216674804688
+            ],
+            "endPosition": [
+              104.99839782714844,
+              0.5800624489784241,
+              148.0126495361328
+            ]
+          }
+        ],
+        "reviewSchedule": "planned",
+        "relayHandoffMode": "station",
+        "relayHandoffWaiting": false,
+        "relayHandoffWaitSeconds": 65.42499999999814,
+        "flightThrottle": 0,
+        "nozzleThrustLevels": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bodyOrientationQuaternion": [
+          -7.961787105159601e-07,
+          -0.999998152256012,
+          -0.001883352524600923,
+          0.00038834018050692976
+        ],
+        "bodyAngularVelocityWorld": [
+          0.05167316272854805,
+          3.34569594997447e-05,
+          -3.9843751437729225e-05
+        ],
+        "bodyUpWorld": [
+          3.0551173974864774e-06,
+          0.9999929059652684,
+          0.0037666974709188684
+        ],
+        "bodyHeadingYawRadians": -3.1408159720786006,
+        "targetDwellSeconds": 0,
+        "lastLandingImpact": 0.2768513560295105,
+        "chargingEligible": false,
+        "chargingStopsCompleted": 1,
+        "waypoint": {
+          "kind": "destination",
+          "position": [
+            35,
+            0,
+            150
+          ],
+          "distance": 70.02,
+          "heightAboveSurface": -0.02
+        },
+        "lastAppliedManeuver": "hold",
+        "runId": "actuator-regression-fixture",
+        "seq": 4245,
+        "simTime": 378.8916666664864,
+        "wallElapsedSeconds": 440.71666666643017,
+        "setupElapsedSeconds": 61.82499999999713,
+        "setupPending": false,
+        "waypointIndex": 0,
+        "observedAt": 1792350455754,
+        "position": [
+          104.99839782714844,
+          0.5799590349197388,
+          148.17495727539062
+        ],
+        "velocity": [
+          0.0014047003351151943,
+          -0.033097121864557266,
+          1.7458871603012085
+        ],
+        "yaw": -3.1408162517700413,
+        "grounded": true,
+        "energy": 32.144850849990725,
+        "speed": 1.7458877253957796,
+        "headingError": -1.545505998433588,
+        "distance": 70.02218562223253,
+        "heightAboveTarget": -0.020040965080261208,
+        "cruiseAltitude": 0.64,
+        "target": "depot",
+        "targetPosition": [
+          35,
+          0,
+          150
+        ],
+        "departureComplete": true,
+        "roadTravelPending": false,
+        "stage": "depot",
+        "completed": [
+          "relay-1",
+          "relay-2",
+          "relay-3"
+        ],
+        "status": "running",
+        "seed": 7,
+        "interventions": 0,
+        "collisions": 0,
+        "staleSeconds": 11.474999999999989,
+        "planVersion": 4,
+        "legIndex": 10,
+        "paused": false
+      },
+      "plan": {
+        "goals": [
+          {
+            "id": "observatory-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -70,
+              54,
+              -58
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above the Observatory roof before traveling toward the charger."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "observatory-to-charger-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              54,
+              48
+            ],
+            "speed": 5,
+            "guidance": [
+              "Stay at this altitude across the diagonal to the charger; it clears the buildings along the route. Arrive over the station before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charge-waterfront",
+            "kind": "charge",
+            "target": "charger",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Land within the station acceptance area and remain grounded until the charge goal completes."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-departure-height",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              -175,
+              58,
+              48
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb above nearby rooftops before crossing toward Highline."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "charger-to-highline-overhead",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              58,
+              -128
+            ],
+            "speed": 5,
+            "guidance": [
+              "Maintain this altitude across the diagonal; it clears the tall buildings near the route and the Highline roof. Arrive directly above the relay before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "activate-highline",
+            "kind": "relay",
+            "target": "relay-3",
+            "position": null,
+            "speed": 4,
+            "guidance": [
+              "Center over the relay and make a controlled landing; remain grounded and stable through activation."
+            ],
+            "reviewAfter": true
+          },
+          {
+            "id": "highline-departure-height-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              70,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Climb clear of the Highline rooftop before moving east."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-overhead-revised",
+            "kind": "fly",
+            "target": null,
+            "position": [
+              105,
+              48,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Move east to the open x=105 street before descending."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-landing",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              -128
+            ],
+            "speed": 4,
+            "guidance": [
+              "Descend over the open street and establish wheel contact before the ground return."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "east-street-ground-return",
+            "kind": "drive",
+            "target": null,
+            "position": [
+              105,
+              0.6,
+              150
+            ],
+            "speed": 8,
+            "guidance": [
+              "Follow the x=105 street corridor north to z=150; remain on the open roadway."
+            ],
+            "reviewAfter": false
+          },
+          {
+            "id": "return-depot",
+            "kind": "depot",
+            "target": "depot",
+            "position": null,
+            "speed": 8,
+            "guidance": [
+              "Return west along the open z=150 roadway to the depot and settle within its acceptance area."
+            ],
+            "reviewAfter": false
+          }
+        ]
+      },
+      "expected": {
+        "drive": {
+          "verticalSpeedTarget": null,
+          "wheelThrottle": 1,
+          "horizontalBrake": false,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "climb": {
+          "verticalSpeedTarget": 0.07204915809631349,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 1
+        },
+        "cruise": {
+          "verticalSpeedTarget": 0.048032772064209,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "approach": {
+          "verticalSpeedTarget": 0.048032772064209,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "descend": {
+          "verticalSpeedTarget": 0.017034820318222028,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        },
+        "hold": {
+          "verticalSpeedTarget": 0,
+          "wheelThrottle": 0,
+          "horizontalBrake": true,
+          "pitchTilt": 0,
+          "liftMode": 0
+        }
+      }
+    }
+  ]
+}
